@@ -1,4 +1,5 @@
 using System;
+using Camera;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -25,6 +26,10 @@ namespace Player
         [Header("Visual Effects")]
         [SerializeField] private Color damageColor;
         [SerializeField] private ParticleSystem damageParticle;
+        [SerializeField] private ParticleSystem explosionEffect;
+        [SerializeField] private CameraShake cameraShake;
+        
+
         
         private Material _material;
         private Rigidbody _rigidbody;
@@ -84,13 +89,23 @@ namespace Player
                 {
                     health -= 10;
                     _audioSource.PlayOneShot(hitSound);
+                    cameraShake.ShakeCamera(5f, 0.1f);
                     _material.DOColor(damageColor, 0.1f).SetLoops(2, LoopType.Yoyo);
                     if (!damageParticle.isPlaying)
                     {
                         damageParticle.Play();
                     }
                 }
-                await UniTask.Delay(TimeSpan.FromSeconds(damageInterval));  
+                await UniTask.Delay(TimeSpan.FromSeconds(damageInterval));
+                if (health <= 0)
+                {
+                    if (!explosionEffect.isPlaying)
+                    {
+                        explosionEffect.Play();
+                    }
+                    await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+                    gameObject.SetActive(false);
+                }
             }
         }
 
@@ -121,5 +136,8 @@ namespace Player
         {
             _rigidbody.linearVelocity += _moveVector * moveSpeed;
         }
+        
+
+        
     }
 }
