@@ -15,7 +15,10 @@ namespace AI
         
         private void Update()
         {
-            _agent.destination = playerTransform.position;
+            if (playerTransform != null)
+            {
+                _agent.SetDestination(playerTransform.position);
+            }
         }
     }
 }
