@@ -1115,11 +1115,11 @@ GameObject:
   - component: {fileID: 1223161161}
   - component: {fileID: 1223161160}
   - component: {fileID: 1223161159}
-  - component: {fileID: 1223161158}
-  - component: {fileID: 1223161162}
-  - component: {fileID: 1223161163}
+  - component: {fileID: 1223161166}
   - component: {fileID: 1223161165}
   - component: {fileID: 1223161164}
+  - component: {fileID: 1223161163}
+  - component: {fileID: 1223161162}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1127,27 +1127,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &1223161158
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1223161157}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1223161159
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1171,7 +1150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7518817df3228914691f49e02eb647ba, type: 2}
+  - {fileID: 2100000, guid: 4af1a97f01450a5469e0574b0fb0d73f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1209,7 +1188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223161157}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
@@ -1217,30 +1196,27 @@ Transform:
   - {fileID: 5487172187583961235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1223161162
-MonoBehaviour:
+--- !u!135 &1223161162
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223161157}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa2f0a6dea31e9a4eb2312a4d7d047ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitSound: {fileID: 8300000, guid: 5e5104458fa47f045ab5be62f622b03e, type: 3}
-  explosionSound: {fileID: 8300000, guid: f415a27eb0299bc4aaca70b2d5514b07, type: 3}
-  health: 100
-  damageInterval: 1
-  healthBar: {fileID: 1935063860}
-  easeHealthbar: {fileID: 362609330}
-  lerpSpeed: 0.05
-  moveSpeed: 1
-  damageColor: {r: 0.745283, g: 0, b: 0, a: 0.47058824}
-  damageParticle: {fileID: 5487172187583961234}
-  explosionEffect: {fileID: 3581804348049110204}
-  cameraShake: {fileID: 330585549}
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1223161163
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1288,7 +1264,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1373,6 +1349,30 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1223161166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223161157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2f0a6dea31e9a4eb2312a4d7d047ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitSound: {fileID: 8300000, guid: 5e5104458fa47f045ab5be62f622b03e, type: 3}
+  explosionSound: {fileID: 8300000, guid: f415a27eb0299bc4aaca70b2d5514b07, type: 3}
+  health: 100
+  damageInterval: 1
+  healthBar: {fileID: 1935063860}
+  easeHealthbar: {fileID: 362609330}
+  lerpSpeed: 0.05
+  moveSpeed: 1
+  damageColor: {r: 0.745283, g: 0, b: 0, a: 0.47058824}
+  damageParticle: {fileID: 5487172187583961234}
+  explosionEffect: {fileID: 3581804348049110204}
+  cameraShake: {fileID: 330585549}
 --- !u!1 &1279265897
 GameObject:
   m_ObjectHideFlags: 0
@@ -45623,7 +45623,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.40000004, y: 4.5933337, z: -3.3600001}
-  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5270287525157963542}

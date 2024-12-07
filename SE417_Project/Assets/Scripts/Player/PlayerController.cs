@@ -28,9 +28,8 @@ namespace Player
         [SerializeField] private ParticleSystem damageParticle;
         [SerializeField] private ParticleSystem explosionEffect;
         [SerializeField] private CameraShake cameraShake;
-        
 
-        
+        #region Private Variables
         private Material _material;
         private Rigidbody _rigidbody;
         private AudioSource _audioSource;
@@ -41,7 +40,9 @@ namespace Player
         private float _verticalInput;
         private bool _isTouchingEnemy;
         private bool _isDead;
+        #endregion
 
+        #region Unity Functions
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -53,12 +54,15 @@ namespace Player
         {
             GetDamageFromEnemy().Forget(); 
         }
-
         private void Update()
         {
             UpdateHealthBar();
             if (_isDead) return;
             GetMovementInput();
+            /*
+             * if player dead scale the player to zero and play explosion effect
+             * DOTween is a tweening library for Unity
+             */
             if (health <= 0 && !_isDead)
             {
                 transform.DOScale(Vector3.one * 1.3f, 0.1f).SetEase(Ease.OutExpo).OnComplete(() =>
@@ -87,7 +91,7 @@ namespace Player
                 _isTouchingEnemy = true;
             }
         }
-
+        
         private void OnCollisionExit(Collision other)
         {
             if (other.gameObject.CompareTag("Enemy"))
@@ -95,7 +99,15 @@ namespace Player
                 _isTouchingEnemy = false;
             }
         }
+        
 
+        #endregion
+
+        #region Custom Functions
+        /// <summary>
+        /// To get damage from enemy once in damage interval time
+        /// UniTask is a library for Unity to handle async operations
+        /// </summary>
         private async UniTaskVoid GetDamageFromEnemy()
         {
             while (true)
@@ -142,5 +154,6 @@ namespace Player
         {
             _rigidbody.linearVelocity += _moveVector * moveSpeed;
         }
+        #endregion
     }
 }
