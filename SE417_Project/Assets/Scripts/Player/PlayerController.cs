@@ -11,7 +11,7 @@ namespace Player
     {
         [Header("Audio Settings")]
         [SerializeField] private AudioClip hitSound;
-        //[SerializeField] private AudioClip collectSound;
+        [SerializeField] private AudioClip explosionSound;
         
         [Header("Health Settings")]
         [SerializeField] private int health = 100;
@@ -40,6 +40,7 @@ namespace Player
         private float _horizontalInput;
         private float _verticalInput;
         private bool _isTouchingEnemy;
+        private bool _isDead;
 
         private void Awake()
         {
@@ -55,8 +56,22 @@ namespace Player
 
         private void Update()
         {
-            GetMovementInput();
             UpdateHealthBar();
+            if (_isDead) return;
+            GetMovementInput();
+            if (health <= 0 && !_isDead)
+            {
+                transform.DOScale(Vector3.one * 1.3f, 0.1f).SetEase(Ease.OutExpo).OnComplete(() =>
+                {
+                    transform.DOScale(Vector3.zero, 0.01f);
+                    _audioSource.PlayOneShot(explosionSound);
+                    if (!explosionEffect.isPlaying)
+                    {
+                        explosionEffect.Play();
+                    }    
+                });
+                _isDead = true;
+            }
         }
         
         private void FixedUpdate()
@@ -85,6 +100,7 @@ namespace Player
         {
             while (true)
             {
+                await UniTask.Delay(TimeSpan.FromSeconds(damageInterval));
                 if (health > 0 && _isTouchingEnemy)
                 {
                     health -= 10;
@@ -95,16 +111,6 @@ namespace Player
                     {
                         damageParticle.Play();
                     }
-                }
-                await UniTask.Delay(TimeSpan.FromSeconds(damageInterval));
-                if (health <= 0)
-                {
-                    if (!explosionEffect.isPlaying)
-                    {
-                        explosionEffect.Play();
-                    }
-                    await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
-                    gameObject.SetActive(false);
                 }
             }
         }
@@ -136,8 +142,5 @@ namespace Player
         {
             _rigidbody.linearVelocity += _moveVector * moveSpeed;
         }
-        
-
-        
     }
 }
