@@ -1,0 +1,121 @@
+# Blender MTL File: 'None'
+# Material Count: 10
+
+newmtl mat0
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0394out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0394out0_tex00.png
+
+newmtl mat0.001
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0395out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0395out0_tex00.png
+
+newmtl mat0.002
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0396out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0396out0_tex00.png
+
+newmtl mat0.003
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0397out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0397out0_tex00.png
+
+newmtl mat0.004
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0398out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0398out0_tex00.png
+
+newmtl mat0.005
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0399out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0399out0_tex00.png
+
+newmtl mat0.006
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0400out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0400out0_tex00.png
+
+newmtl mat0.007
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0401out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0401out0_tex00.png
+
+newmtl mat0.008
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0402out0_tex00.png
+map_d C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0402out0_tex00.png
+
+newmtl mat0.009
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\patri\\Documents\\New folder\\_NinjaRipper\\2022.11.12_10.00.21_Game-TS3.exe_8100\\2022.11.12_10.08.03_Game-TS3.exe\\Mesh_0403out0_tex00.png
