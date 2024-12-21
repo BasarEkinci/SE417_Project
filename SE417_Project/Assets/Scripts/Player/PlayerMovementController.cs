@@ -1,10 +1,12 @@
+using Inputs;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     public class PlayerMovementController : MonoBehaviour
     {
-        private float _moveSpeed = 2.8f;
+        [SerializeField] private float moveSpeed = 2.8f;
         
         private float _horizontalInput;
         private float _verticalInput;
@@ -12,12 +14,16 @@ namespace Player
         
         private Rigidbody _rigidbody;
         private Animator _animator;
+        private InputHandler _inputHandler;
         private bool _isRunning;
         private bool _isWalking;
+        private float _baseSpeed;
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _animator = GetComponentInChildren<Animator>();
+            _baseSpeed = moveSpeed;
+            _inputHandler = GetComponent<InputHandler>();
         }
         
         private void Update()
@@ -29,24 +35,14 @@ namespace Player
 
         private void FixedUpdate()
         {
-            _rigidbody.linearVelocity = _moveVector * _moveSpeed;
+            _rigidbody.linearVelocity = _moveVector * moveSpeed;
         }
 
         private void GetMoveInput()
         {
-            _horizontalInput = Input.GetAxis("Horizontal");
-            _verticalInput = Input.GetAxis("Vertical");
-            _moveVector = new Vector3(_horizontalInput, _rigidbody.linearVelocity.y, _verticalInput);
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                _moveSpeed = 3.5f;
-                _isRunning = true;
-            }
-            else
-            {
-                _moveSpeed = 2.8f;
-                _isRunning = false;
-            }
+            Vector2 movementInput = _inputHandler.GetMovementInput();
+            _moveVector = new Vector3(movementInput.x, _rigidbody.linearVelocity.y, movementInput.y);
+            moveSpeed = _inputHandler.IsRunning(_isRunning) ? _baseSpeed * 2 : _baseSpeed;
         }
         
         private void SetAnimatorValues()

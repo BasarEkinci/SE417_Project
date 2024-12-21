@@ -314,8 +314,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3092442, y: -0.000000009007994, z: 0.0000000029292542, w: 0.9509827}
-  m_LocalPosition: {x: 0, y: 4.511, z: -4.418}
+  m_LocalRotation: {x: 0.32717192, y: 0.00000006297248, z: -0.000000021802744, w: 0.9449648}
+  m_LocalPosition: {x: 0, y: 9.81, z: -10.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1028,7 +1028,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 4, z: -5.5}
+  FollowOffset: {x: 0, y: 8.56, z: -10.88}
 --- !u!114 &1219688338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 2011714855}
+    TrackingTarget: {fileID: 1223161161}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -1080,8 +1080,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219688335}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30924416, y: -0.0000000090079935, z: 0.000000002929251, w: 0.95098275}
-  m_LocalPosition: {x: 0, y: 4.511, z: -4.418}
+  m_LocalRotation: {x: 0.3271719, y: 0.000000062972475, z: -0.00000002180274, w: 0.9449649}
+  m_LocalPosition: {x: 0, y: 9.81, z: -10.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2013,6 +2013,7 @@ GameObject:
   - component: {fileID: 2011714854}
   - component: {fileID: 2011714857}
   - component: {fileID: 2011714858}
+  - component: {fileID: 2011714859}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2032,6 +2033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1393a362da146554082b35e497b0f01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 3
 --- !u!4 &2011714855
 Transform:
   m_ObjectHideFlags: 0
@@ -2098,6 +2100,18 @@ CapsuleCollider:
   m_Height: 2.1080537
   m_Direction: 1
   m_Center: {x: -0.00643903, y: 1.0621517, z: 0}
+--- !u!114 &2011714859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011714851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a9f1380115f1849bc5db47fdd69fee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &79011639451190042
 Transform:
   m_ObjectHideFlags: 0
