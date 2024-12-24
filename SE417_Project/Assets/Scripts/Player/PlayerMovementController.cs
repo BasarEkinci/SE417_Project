@@ -7,7 +7,6 @@ namespace Player
 {
     public class PlayerMovementController : MonoBehaviour
     {
-        public float MoveSpeed => _moveVector.magnitude;
         public bool IsMoving => _moveVector.magnitude > 0;
         public bool IsJumping => !_layerDetector.IsLayerDetected();
         public bool IsInjured => _currentHealth < 25f;
@@ -64,6 +63,7 @@ namespace Player
 
         private void Jump()
         {
+            //if the player is injured and the health is less than 25, the player can't jump
             if (_currentHealth <=25f)
             {
                 return;
