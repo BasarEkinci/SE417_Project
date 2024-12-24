@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,15 +7,17 @@ namespace Player
     {
         [SerializeField] private float moveSpeed;
 
+        #region Public Properties
+        public float MoveSpeed => moveVector.magnitude;
+        public bool IsMoving => moveVector.magnitude > 0;
+        #endregion
+
         #region Class References
         private PlayerInputs _playerInputs;
-        private Animator _animator;
         private Rigidbody _rigidbody;
         #endregion
 
         #region Variables
-        private bool _isRunning;
-        private float _baseSpeed;
         private Vector2 moveVector;
         #endregion
 
@@ -26,27 +26,18 @@ namespace Player
         private void Awake()
         {
             _playerInputs = new PlayerInputs();
-            _playerInputs.Player.Enable();
             _rigidbody = GetComponent<Rigidbody>();
-            _animator = GetComponentInChildren<Animator>();
         }
-
-        private void Start()
+        
+        private void OnEnable()
         {
-            _baseSpeed = moveSpeed;
+            _playerInputs.Player.Enable();
+            _playerInputs.Player.Run.started += OnRun;
+            _playerInputs.Player.Run.canceled += OnRun;
         }
 
         private void Update()
         {
-            SetAmimationParameters();
-            if (moveSpeed == _baseSpeed && _isRunning)
-            {
-                moveSpeed = _baseSpeed * 2;
-            }
-            else if (moveSpeed != _baseSpeed && !_isRunning)
-            {
-                moveSpeed = _baseSpeed;
-            }
             // Rotate player to face movement direction
             if (moveVector != Vector2.zero)
             {
@@ -60,14 +51,11 @@ namespace Player
             MovePlayer();
         }
 
-        private void OnEnable()
-        {
-            _playerInputs.Player.Run.started += OnRun;
-            _playerInputs.Player.Run.canceled += OnRun;
-        }
 
         private void OnDisable()
         {
+            _playerInputs.Player.Run.started -= OnRun;
+            _playerInputs.Player.Run.canceled -= OnRun;
             _playerInputs.Disable();
         }
         #endregion
@@ -76,21 +64,13 @@ namespace Player
         //This function controls the run key pressed or released : "Shift"
         private void OnRun(InputAction.CallbackContext context)
         {
-            _isRunning = context.started;
         }
 
         //This function controls the movement of the player. It takes the input and sets the velocity of the rigidbody.
         private void MovePlayer()
         {
             moveVector = _playerInputs.Player.Move.ReadValue<Vector2>();
-            _rigidbody.linearVelocity = new Vector3(moveVector.x, _rigidbody.linearVelocity.y, moveVector.y) * moveSpeed;
-        }
-
-        //This function sets the animation parameters for the animator.
-        private void SetAmimationParameters()
-        {
-            _animator.SetBool("isRunning", _isRunning);
-            _animator.SetBool("isWalking", moveVector.magnitude > 0);
+            //_rigidbody.linearVelocity = new Vector3(moveVector.x, _rigidbody.linearVelocity.y, moveVector.y) * moveSpeed;
         }
         #endregion
     }

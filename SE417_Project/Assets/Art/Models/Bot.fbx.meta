@@ -1,59 +1,9 @@
 fileFormatVersion: 2
-guid: ac43f5daad31b344692eb8c8cd45479c
+guid: a4334c2b3b1497447a4a3dfdf7abbeb5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0
-    second: {fileID: 2100000, guid: d1e5679630bcd534a84264fe88a78ab5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.001
-    second: {fileID: 2100000, guid: 7cfcb5cb8ffac4e47a12bfae5bba72dd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.002
-    second: {fileID: 2100000, guid: b51c9ccbf4e7fbb4ab4d05f6c6c1dc8a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.003
-    second: {fileID: 2100000, guid: e3cb41a8e1eed814cb060fd28aa4e69b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.004
-    second: {fileID: 2100000, guid: aef1d1368f750e440be9971f103c1917, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.005
-    second: {fileID: 2100000, guid: 8472aae1dec517f41bc4a52b27d0a306, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.006
-    second: {fileID: 2100000, guid: 5717fb4ee6bd2c7459f06fb8669879f3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.007
-    second: {fileID: 2100000, guid: a742fc45e3411494b9d0c315bc2e9d4d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.008
-    second: {fileID: 2100000, guid: a29e7f70d7ebf444b80b640d6cd72ae2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: mat0.009
-    second: {fileID: 2100000, guid: dc0e4cc943c919447af57b8dc8e3d7de, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -72,7 +22,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -126,7 +76,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 1
+  importAnimation: 0
   humanDescription:
     serializedVersion: 3
     human: []
@@ -141,13 +91,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
