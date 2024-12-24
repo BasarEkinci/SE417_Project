@@ -7,7 +7,7 @@ namespace Player
         private PlayerMovementController _playerMovementController;
         private Animator _animator;
 
-        private static readonly int MoveSpeed = Animator.StringToHash("MoveSpeed");
+        private static readonly int IsInjured = Animator.StringToHash("IsInjured");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int IsJumping = Animator.StringToHash("IsJumping");
         private void Awake()
@@ -23,9 +23,9 @@ namespace Player
 
         private void SetAnimationParameters()
         {
-            _animator.SetFloat(MoveSpeed, _playerMovementController.MoveSpeed);
             _animator.SetBool(IsMoving, _playerMovementController.IsMoving);
             _animator.SetBool(IsJumping, _playerMovementController.IsJumping);
+            _animator.SetBool(IsInjured, _playerMovementController.IsInjured);
         }
     }
 }

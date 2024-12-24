@@ -1,5 +1,6 @@
+using Camera;
 using Inputs;
-using Unity.VisualScripting;
+using UI;
 using UnityEngine;
 
 namespace Player
@@ -9,39 +10,65 @@ namespace Player
         public float MoveSpeed => _moveVector.magnitude;
         public bool IsMoving => _moveVector.magnitude > 0;
         public bool IsJumping => !_layerDetector.IsLayerDetected();
+        public bool IsInjured => _currentHealth < 25f;
 
         [Header("Movement Settings")]
         [SerializeField] private float moveSpeed;
+        [SerializeField] private float injuredMoveSpeed;
         [SerializeField] private float jumpForce;
+        
+        [Header("Health Settings")]
+        [SerializeField] private int maxHealth;
+        private int _currentHealth;
+        
+        [Header("References")]
+        [SerializeField] private HealthBar healthBar;
+        [SerializeField] private CameraShake cameraShake;
 
         private InputHandler _inputHandler;
         private LayerDetector _layerDetector;
         private Rigidbody _rigidbody;
         private Vector2 _moveVector;
-
+        private float _baseSpeed;
+        private bool _isInjured;
         private void Awake()
         {
             _inputHandler = GetComponent<InputHandler>();
             _rigidbody = GetComponent<Rigidbody>();
             _layerDetector = GetComponentInChildren<LayerDetector>();
         }
+
+        private void Start()
+        {
+            _currentHealth = maxHealth;
+            _baseSpeed = moveSpeed;
+            healthBar.InitializeValues(maxHealth);
+        }
+
         private void Update()
         {
             RotateToMoveDirection();
             Move();
             Jump();
+            healthBar.UpdateValues(_currentHealth);
         }
 
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                Debug.Log("Damaged");
+                _currentHealth -= 10;
+                cameraShake.ShakeCamera();
             }
         }
 
         private void Jump()
         {
+            if (_currentHealth <=25f)
+            {
+                return;
+            }
+            
             if (_inputHandler.GetJumpInput() && _layerDetector.IsLayerDetected())
             {
 
@@ -54,6 +81,7 @@ namespace Player
         private void Move()
         {
             _moveVector = _inputHandler.GetMoveInput();
+            moveSpeed = IsInjured ? injuredMoveSpeed : _baseSpeed;
             Vector3 movement = new Vector3(_moveVector.x, 0, _moveVector.y) * moveSpeed;
             transform.position += movement * Time.deltaTime;
         }

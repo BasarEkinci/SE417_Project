@@ -1,4 +1,3 @@
-using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -7,7 +6,10 @@ namespace Camera
     public class CameraShake : MonoBehaviour
     {
         [SerializeField] private CinemachineFollow cinemachineFollow;
-
+        [SerializeField] private float intensity;
+        [SerializeField] private float time;
+        
+        
         private CinemachineBasicMultiChannelPerlin _perlin;
         private float _timer;
 
@@ -16,7 +18,7 @@ namespace Camera
             _perlin = cinemachineFollow.GetComponent<CinemachineBasicMultiChannelPerlin>();   
         }
 
-        public void ShakeCamera(float intensity,float time)
+        public void ShakeCamera()
         {
             _perlin.AmplitudeGain = intensity;
             _timer = time;
