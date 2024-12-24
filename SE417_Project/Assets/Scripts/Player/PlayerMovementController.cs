@@ -1,49 +1,41 @@
+using Inputs;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Player
 {
     public class PlayerMovementController : MonoBehaviour
     {
         [SerializeField] private float moveSpeed;
-
-        #region Public Properties
-        public float MoveSpeed => moveVector.magnitude;
-        public bool IsMoving => moveVector.magnitude > 0;
-        #endregion
-
-        #region Class References
-        private PlayerInputs _playerInputs;
+        [SerializeField] private float jumpForce;
+        public float MoveSpeed => _moveVector.magnitude;
+        public bool IsMoving => _moveVector.magnitude > 0;
+        public bool IsJumping => _isJumping;
+        private InputHandler _inputHandler;
         private Rigidbody _rigidbody;
-        #endregion
-
-        #region Variables
-        private Vector2 moveVector;
-        #endregion
-
-        #region Unity Functions
+        private Vector2 _moveVector;
+        private bool _isJumping;
+        private bool _isGrounded;
 
         private void Awake()
         {
-            _playerInputs = new PlayerInputs();
+            _inputHandler = GetComponent<InputHandler>();
             _rigidbody = GetComponent<Rigidbody>();
-        }
-        
-        private void OnEnable()
-        {
-            _playerInputs.Player.Enable();
-            _playerInputs.Player.Run.started += OnRun;
-            _playerInputs.Player.Run.canceled += OnRun;
         }
 
         private void Update()
         {
+            Debug.Log(_isJumping);
             // Rotate player to face movement direction
-            if (moveVector != Vector2.zero)
+            if (_moveVector != Vector2.zero)
             {
-                float targetAngle = Mathf.Atan2(moveVector.x, moveVector.y) * Mathf.Rad2Deg;
+                float targetAngle = Mathf.Atan2(_moveVector.x, _moveVector.y) * Mathf.Rad2Deg;
                 Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
+            if (_inputHandler.GetJumpInput() && _isGrounded)
+            {
+                Jump();
             }
         }
         private void FixedUpdate()
@@ -51,27 +43,31 @@ namespace Player
             MovePlayer();
         }
 
-
-        private void OnDisable()
+        private void OnCollisionEnter(Collision collision)
         {
-            _playerInputs.Player.Run.started -= OnRun;
-            _playerInputs.Player.Run.canceled -= OnRun;
-            _playerInputs.Disable();
+            // Check if the collision is with the ground
+            if (collision.gameObject.CompareTag("Ground"))
+            {
+                Debug.Log("Grounded");
+                _isGrounded = true;
+                _isJumping = false;
+            }
         }
-        #endregion
 
-        #region Custom Functions
-        //This function controls the run key pressed or released : "Shift"
-        private void OnRun(InputAction.CallbackContext context)
+
+        private void Jump()
         {
+            _rigidbody.AddForce(Vector3.up * jumpForce);
+            _isJumping = true;
+            _isGrounded = false;
         }
 
         //This function controls the movement of the player. It takes the input and sets the velocity of the rigidbody.
         private void MovePlayer()
         {
-            moveVector = _playerInputs.Player.Move.ReadValue<Vector2>();
-            //_rigidbody.linearVelocity = new Vector3(moveVector.x, _rigidbody.linearVelocity.y, moveVector.y) * moveSpeed;
+            _moveVector = _inputHandler.GetMoveInput();
+            _rigidbody.linearVelocity = new Vector3(_moveVector.x, _rigidbody.linearVelocity.y, _moveVector.y) * moveSpeed;
         }
-        #endregion
+
     }
 }
