@@ -1671,6 +1671,7 @@ GameObject:
   - component: {fileID: 2011714859}
   - component: {fileID: 2011714860}
   - component: {fileID: 2011714861}
+  - component: {fileID: 2011714862}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1693,9 +1694,11 @@ MonoBehaviour:
   moveSpeed: 5
   injuredMoveSpeed: 3.5
   jumpForce: 5
-  maxHealth: 100
   healthBar: {fileID: 17241775}
   cameraShake: {fileID: 2011714861}
+  healthController: {fileID: 2011714862}
+  inputHandler: {fileID: 2011714860}
+  layerDetector: {fileID: 769534327}
 --- !u!4 &2011714855
 Transform:
   m_ObjectHideFlags: 0
@@ -1802,6 +1805,21 @@ MonoBehaviour:
   cinemachineFollow: {fileID: 1026464819}
   intensity: 1
   time: 0.1
+--- !u!114 &2011714862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011714851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da76a5300f6470d4e9253391e55cea01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 17241775}
+  maxHealth: 100
+  injuredHealth: 25
 --- !u!33 &36049542710728092
 MeshFilter:
   m_ObjectHideFlags: 0

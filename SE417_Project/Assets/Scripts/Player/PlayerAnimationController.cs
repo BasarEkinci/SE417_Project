@@ -4,7 +4,8 @@ namespace Player
 {
     public class PlayerAnimationController : MonoBehaviour
     {
-        private PlayerMovementController _playerMovementController;
+        private MovementController _movementController;
+        private HealthController _healthController;
         private Animator _animator;
 
         private static readonly int IsInjured = Animator.StringToHash("IsInjured");
@@ -12,8 +13,9 @@ namespace Player
         private static readonly int IsJumping = Animator.StringToHash("IsJumping");
         private void Awake()
         {
-            _playerMovementController = GetComponent<PlayerMovementController>();
+            _movementController = GetComponent<MovementController>();
             _animator = GetComponentInChildren<Animator>();
+            _healthController = GetComponent<HealthController>();
         }
 
         private void Update()
@@ -23,9 +25,9 @@ namespace Player
 
         private void SetAnimationParameters()
         {
-            _animator.SetBool(IsMoving, _playerMovementController.IsMoving);
-            _animator.SetBool(IsJumping, _playerMovementController.IsJumping);
-            _animator.SetBool(IsInjured, _playerMovementController.IsInjured);
+            _animator.SetBool(IsMoving, _movementController.IsMoving);
+            _animator.SetBool(IsJumping, _movementController.IsJumping);
+            _animator.SetBool(IsInjured, _healthController.IsInjured);
         }
     }
 }
