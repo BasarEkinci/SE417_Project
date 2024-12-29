@@ -1,4 +1,4 @@
-using System;
+using Camera;
 using UI;
 using UnityEngine;
 
@@ -12,15 +12,20 @@ namespace Player
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private int maxHealth;
         [SerializeField] private int injuredHealth;
-                
+        
+        private CameraShake _cameraShake;
         private int _currentHealth;
 
-        public void Initialize()
+        private void Awake()
+        {
+            _cameraShake = GetComponent<CameraShake>();
+        }
+
+        private void Start()
         {
             _currentHealth = maxHealth;
             healthBar.InitializeValues(maxHealth);
         }
-
         private void Update()
         {
             healthBar.UpdateValues(_currentHealth);
@@ -31,6 +36,7 @@ namespace Player
             if (_currentHealth > 0)
             {
                 _currentHealth -= damageAmount;
+                _cameraShake.ShakeCamera();
             }
         }
         public void Heal(int healAmount)
@@ -39,7 +45,6 @@ namespace Player
             {
                 _currentHealth += healAmount;
             }
-            healthBar.UpdateValues(_currentHealth);
         }
     }
 }
