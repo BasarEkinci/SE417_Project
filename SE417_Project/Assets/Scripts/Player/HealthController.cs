@@ -31,7 +31,7 @@ namespace Player
             healthBar.UpdateValues(_currentHealth);
         }
 
-        public void GetDamage(int damageAmount)
+        public void Damage(int damageAmount)
         {
             if (_currentHealth > 0)
             {

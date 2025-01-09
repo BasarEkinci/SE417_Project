@@ -23,14 +23,12 @@ namespace Player
         [SerializeField] private InputHandler inputHandler;
         [SerializeField] private LayerDetector layerDetector;
         
-        
         private Rigidbody _rigidbody;
         private Vector2 _moveVector;
         private float _baseSpeed;
         private bool _isAttachedToEnemy;
         private bool _canMove;
         private bool _isDead;
-        
         
         private void Awake()
         {
@@ -41,10 +39,10 @@ namespace Player
         private void Start()
         {
             _baseSpeed = moveSpeed;
-            //GetDamageAsync().Forget();
             _canMove = true;
+            TakeDamageAsync().Forget();
         }
-
+        
         private void Update()
         {
             if (inputHandler.GetHideInput())
@@ -65,10 +63,26 @@ namespace Player
                 Fall();
             }
             RotateToMoveDirection();
-            MoveState();
-            JumpState();
+            Move();
+            Jump();
         }
-        private void JumpState()
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                _isAttachedToEnemy = true;
+            }
+        }
+        private void OnCollisionExit(Collision other)
+        {
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                _isAttachedToEnemy = false;
+            }
+        }
+
+        private void Jump()
         {
             //if the player is injured and the health is less than 25, the player can't jump
             if (healthController.IsInjured)
@@ -84,7 +98,7 @@ namespace Player
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
-        private void MoveState()
+        private void Move()
         {
             _moveVector = inputHandler.GetMoveInput();
             moveSpeed = healthController.IsInjured ? injuredMoveSpeed : _baseSpeed;
@@ -120,6 +134,19 @@ namespace Player
             PlayerSignals.Instance.OnPlayerWakeUp?.Invoke();
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _canMove = true;
+        }
+
+        private async UniTaskVoid TakeDamageAsync()
+        {
+            while (true)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(1f));
+                if (_isAttachedToEnemy)
+                {
+                    cameraShake.ShakeCamera();
+                    healthController.Damage(20);
+                }
+            }
         }
     }
 }
