@@ -141,7 +141,7 @@ namespace Player
             while (true)
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(1f));
-                if (_isAttachedToEnemy)
+                if (_isAttachedToEnemy && !_isDead)
                 {
                     cameraShake.ShakeCamera();
                     healthController.Damage(20);
