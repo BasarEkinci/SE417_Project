@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Signals;
 using UnityEngine;
 using UnityEngine.AI;
 

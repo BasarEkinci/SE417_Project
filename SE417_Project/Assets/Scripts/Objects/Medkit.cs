@@ -17,7 +17,7 @@ namespace Objects
             if (other.CompareTag("Player"))
             {
                 other.GetComponent<Player.HealthController>().Heal(healAmount);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
 

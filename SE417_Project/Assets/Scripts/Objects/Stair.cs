@@ -1,16 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using Signals;
+using TMPro;
 using UnityEngine;
 
-public class Stair : MonoBehaviour
+namespace Objects
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class Stair : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private TMP_Text collectedPieceCountText;
+        [SerializeField] private List<GameObject> pieces;
+        private int _currentPieceCount;
+        private void OnEnable()
+        {
+            PlayerSignals.Instance.OnCollectObject += OnCollectObject;
+        }
+        private void Start()
+        {
+            collectedPieceCountText.text = $"0/{pieces.Count}";
+            foreach (var piece in pieces.Where(piece => piece.activeSelf))
+            {
+                piece.SetActive(false);
+            }
+        }
+        private void OnDisable()
+        {
+            PlayerSignals.Instance.OnCollectObject -= OnCollectObject;            
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        private void OnCollectObject()
+        {
+            _currentPieceCount++;
+            collectedPieceCountText.transform.DOScale(transform.localScale * 1.1f,0.2f).SetLoops(2, LoopType.Yoyo);
+            collectedPieceCountText.text = $"{_currentPieceCount}/{pieces.Count}";
+            if (_currentPieceCount == pieces.Count)
+            {
+                Build().Forget();
+            }   
+        }
         
+        private async UniTaskVoid Build()
+        {
+            foreach (var piece in pieces.Where(piece => !piece.activeSelf))
+            {
+                piece.SetActive(true);
+                piece.transform.DOScale(Vector3.zero,0.1f).From().SetEase(Ease.OutBack);
+                await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
+            }
+        }
     }
 }
