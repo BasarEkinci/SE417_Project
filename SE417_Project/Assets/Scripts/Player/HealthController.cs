@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Camera;
+using DG.Tweening;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,6 +62,7 @@ namespace Player
             if (_currentHealth >= maxHealth)
             {
                 medkitIcons[_medkitCount].color = Color.white;
+                medkitIcons[_medkitCount].transform.DOScale(transform.localScale * 1.2f, 0.1f).SetLoops(2, LoopType.Yoyo);
                 _medkitCount++;
             }
             if (_currentHealth < maxHealth)

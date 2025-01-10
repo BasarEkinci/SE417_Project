@@ -10,12 +10,11 @@ namespace AI
         [SerializeField] private bool isActive;
         [SerializeField] private Transform playerTransform;
         [SerializeField] private Transform arms;
-        [SerializeField] private float moveSpeed;
         
         private NavMeshAgent _agent;
         private Animator _animator;
         private bool _canMove;
-        
+        private float _baseSpeed;
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
@@ -24,6 +23,7 @@ namespace AI
         
         private void Start()
         {
+            _baseSpeed = _agent.speed;
             _animator.enabled = false;
             _canMove = true;
         }
@@ -64,7 +64,7 @@ namespace AI
             _canMove = true;
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _animator.enabled = true;
-            _agent.speed = moveSpeed;
+            _agent.speed = _baseSpeed;
         }
     }
 }

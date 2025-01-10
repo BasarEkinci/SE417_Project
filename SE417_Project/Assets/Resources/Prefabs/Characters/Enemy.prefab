@@ -1040,6 +1040,7 @@ MonoBehaviour:
   isActive: 1
   playerTransform: {fileID: 0}
   arms: {fileID: 7599265185342504423}
+  moveSpeed: 3.8
 --- !u!95 &1302004322964941875
 Animator:
   serializedVersion: 7

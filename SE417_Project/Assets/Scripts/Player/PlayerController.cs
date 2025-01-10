@@ -87,6 +87,10 @@ namespace Player
         }
         private void Hide()
         {
+            if (_isDead)
+            {
+                return;
+            }
             if (inputHandler.GetHideInput())
             {
                 if (_canMove)
@@ -127,6 +131,8 @@ namespace Player
             }
             transform.position += movement * Time.deltaTime;
         }
+        
+        //This method is used to rotate the player towards the move direction
         private void RotateToMoveDirection()
         {
             if (!_canMove)
@@ -141,29 +147,33 @@ namespace Player
             }
         }
 
+        //This method is used to make the player fall when the player dies.
         private void Fall()
         {
             PlayerSignals.Instance.OnPlayerHide?.Invoke();
             _canMove = false;
         }
-
+        
+        //This method is used to stand up after the player hides
         private async UniTaskVoid StandUp()
         {
             PlayerSignals.Instance.OnPlayerWakeUp?.Invoke();
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _canMove = true;
         }
-
+        
+        
+        //This method is used to take damage every second if the player is attached to the enemy
         private async UniTaskVoid TakeDamageAsync()
         {
             while (true)
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(1f));
                 if (_isAttachedToEnemy && !_isDead)
                 {
                     cameraShake.ShakeCamera();
                     healthController.Damage(20);
                 }
+                await UniTask.Delay(TimeSpan.FromSeconds(1f));
             }
         }
     }
