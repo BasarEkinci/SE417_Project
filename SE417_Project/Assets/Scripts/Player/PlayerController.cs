@@ -57,6 +57,7 @@ namespace Player
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
+                healthController.Damage(20);
                 _isAttachedToEnemy = true;
             }
         }
