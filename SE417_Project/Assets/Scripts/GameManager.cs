@@ -31,22 +31,6 @@ public class GameManager : MonoBehaviour
             ChangeCameraAsync().Forget();
         }
     }
-
-    private async UniTaskVoid ChangeCamera()
-    {
-        fadeImage.DOColor(Color.black, 1f);
-        await UniTask.Delay(TimeSpan.FromSeconds(2f));
-        fadeImage.DOColor(Color.clear, 1f);
-        playerCamera.SetActive(false);
-        stairsCamera.SetActive(true);
-        stair.Build().Forget();
-        await UniTask.Delay(TimeSpan.FromSeconds(2.5f));
-        fadeImage.DOColor(Color.black, 1f);
-        await UniTask.Delay(TimeSpan.FromSeconds(2f));
-        fadeImage.DOColor(Color.clear, 1f);
-        playerCamera.SetActive(true);
-        stairsCamera.SetActive(false);
-    }
     
     private async UniTask ChangeCameraAsync()
     { 
