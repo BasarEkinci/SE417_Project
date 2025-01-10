@@ -16,7 +16,10 @@ namespace Inputs
         {
             _playerInputs.Player.Enable();
         }
-
+        private void OnDisable()
+        {
+            _playerInputs.Player.Disable();
+        }
         public bool GetJumpInput()
         {
             return _playerInputs.Player.Jump.triggered;
@@ -25,12 +28,12 @@ namespace Inputs
         {
             return _playerInputs.Player.Hide.triggered;
         }
-        private void OnDisable()
+        
+        public bool GetHealInput()
         {
-            _playerInputs.Player.Disable();
+            return _playerInputs.Player.Heal.triggered;
         }
-
-
+        
         public Vector2 GetMoveInput()
         {
             return _playerInputs.Player.Move.ReadValue<Vector2>();

@@ -45,23 +45,9 @@ namespace Player
         
         private void Update()
         {
-            if (inputHandler.GetHideInput())
-            {
-                if (_canMove)
-                {
-                    Fall();
-                }
-                else
-                {
-                    StandUp().Forget();
-                }
-            }
-            if (healthController.CurrentHealth <= 0 && !_isDead)
-            {
-                _isDead = true;
-                PlayerSignals.Instance.OnPlayerDie?.Invoke();
-                Fall();
-            }
+            UseMedkit();
+            Hide();
+            Dead();
             RotateToMoveDirection();
             Move();
             Jump();
@@ -82,6 +68,38 @@ namespace Player
             }
         }
 
+        private void Dead()
+        {
+            if (healthController.CurrentHealth <= 0 && !_isDead)
+            {
+                _isDead = true;
+                PlayerSignals.Instance.OnPlayerDie?.Invoke();
+                Fall();
+            }
+        }
+
+        private void UseMedkit()
+        {
+            if (inputHandler.GetHealInput() && healthController.CurrentHealth < healthController.MaxHealth)
+            {
+                healthController.UseMedkit();
+            }
+        }
+        private void Hide()
+        {
+            if (inputHandler.GetHideInput())
+            {
+                if (_canMove)
+                {
+                    Fall();
+                }
+                else
+                {
+                    StandUp().Forget();
+                }
+            }
+        }
+        
         private void Jump()
         {
             //if the player is injured and the health is less than 25, the player can't jump

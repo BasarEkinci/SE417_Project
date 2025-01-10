@@ -7,13 +7,15 @@ namespace AI
 {
     public class AIController : MonoBehaviour
     {
+        [SerializeField] private bool isActive;
         [SerializeField] private Transform playerTransform;
         [SerializeField] private Transform arms;
+        [SerializeField] private float moveSpeed;
         
         private NavMeshAgent _agent;
         private Animator _animator;
         private bool _canMove;
-        private bool _isAttachedToPlayer;
+        
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
@@ -22,6 +24,7 @@ namespace AI
         
         private void Start()
         {
+            _animator.enabled = false;
             _canMove = true;
         }
 
@@ -31,17 +34,6 @@ namespace AI
             PlayerSignals.Instance.OnPlayerWakeUp += Resume;
             PlayerSignals.Instance.OnPlayerDie += Stop;
         }
-
-        private void OnCollisionEnter(Collision other)
-        {
-            
-        }
-
-        private void OnCollisionExit(Collision other)
-        {
-            
-        }
-
         private void OnDisable()
         {
             PlayerSignals.Instance.OnPlayerHide -= Stop;
@@ -51,12 +43,14 @@ namespace AI
 
         private void Update()
         {
+            if (!isActive)
+            {
+                return;
+            }
             if (playerTransform != null && _canMove)
             {
                 _agent.SetDestination(playerTransform.position);
             }
-            
-            Debug.Log(_isAttachedToPlayer);
         }
         private void Stop()
         {
@@ -70,7 +64,7 @@ namespace AI
             _canMove = true;
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _animator.enabled = true;
-            _agent.speed = 3.5f;
+            _agent.speed = moveSpeed;
         }
     }
 }
