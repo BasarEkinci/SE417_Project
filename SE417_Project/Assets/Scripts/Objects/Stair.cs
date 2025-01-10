@@ -38,11 +38,12 @@ namespace Objects
             collectedPieceCountText.text = $"{_currentPieceCount}/{pieces.Count}";
             if (_currentPieceCount == pieces.Count)
             {
-                Build().Forget();
+                //1 mean level 1 is completed
+                PlayerSignals.Instance.OnCompleteLevel?.Invoke(1);
             }   
         }
         
-        private async UniTaskVoid Build()
+        public async UniTaskVoid Build()
         {
             foreach (var piece in pieces.Where(piece => !piece.activeSelf))
             {
