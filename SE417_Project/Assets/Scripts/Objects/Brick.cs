@@ -22,7 +22,7 @@ namespace Objects
             if (other.CompareTag("Player"))
             {
                 PlayerSignals.Instance.OnCollectObject?.Invoke();
-                gameObject.SetActive(false);
+                transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
             }
         }
     }

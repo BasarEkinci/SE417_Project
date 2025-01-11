@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Player;
 using UnityEngine;
 
 namespace Objects
@@ -7,23 +8,22 @@ namespace Objects
     {
         [SerializeField] private int healAmount;
         private Tween _tween;
-        private void OnEnable()
-        {
-            _tween = transform.DORotate(Vector3.up * 360, 1f).SetLoops(-1, LoopType.Incremental).SetEase(Ease.Linear);
-        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                other.GetComponent<Player.HealthController>().Heal(healAmount);
+                other.GetComponent<HealthController>().Heal(healAmount);
                 gameObject.SetActive(false);
             }
         }
 
-        private void OnDisable()
+        private void Update()
         {
-            _tween.Kill();
+            if (gameObject.activeSelf)
+            {
+                transform.Rotate(Vector3.up * (100 * Time.deltaTime));
+            }
         }
     }
 }
