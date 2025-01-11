@@ -22,14 +22,14 @@ namespace Player
 
         public void OnEnable()
         {
-            PlayerSignals.Instance.OnPlayerHide += Fall;
-            PlayerSignals.Instance.OnPlayerWakeUp += StandUp;
+            CoreGameSignals.Instance.OnPlayerHide += Fall;
+            CoreGameSignals.Instance.OnPlayerWakeUp += StandUp;
         }
 
         private void OnDisable()
         {
-            PlayerSignals.Instance.OnPlayerHide -= Fall;
-            PlayerSignals.Instance.OnPlayerWakeUp -= StandUp;
+            CoreGameSignals.Instance.OnPlayerHide -= Fall;
+            CoreGameSignals.Instance.OnPlayerWakeUp -= StandUp;
         }
 
         private void Update()

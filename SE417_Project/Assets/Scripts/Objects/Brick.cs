@@ -21,7 +21,7 @@ namespace Objects
         {
             if (other.CompareTag("Player"))
             {
-                PlayerSignals.Instance.OnCollectObject?.Invoke();
+                CoreGameSignals.Instance.OnCollectObject?.Invoke();
                 transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
             }
         }

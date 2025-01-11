@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -13,13 +12,7 @@ namespace Camera
         private Vector3 _direction;
         private Material _material;
         private GameObject _hitObject;
-        private Color _currentColor;
-
-        private void Start()
-        {
-            _currentColor = new Color(255, 255, 0, 255);
-        }
-
+        private List<GameObject> _hitObjects = new List<GameObject>();
         private void Update()
         {
             _direction = player.position - transform.position;
@@ -29,16 +22,22 @@ namespace Camera
                 if (hit.collider != null)
                 {
                     _hitObject = hit.collider.gameObject;
+                    if (!_hitObjects.Contains(_hitObject))
+                    {
+                        _hitObjects.Add(_hitObject);
+                    }
                     _material = _hitObject.GetComponent<Collider>().GetComponent<MeshRenderer>().material;
-                    _currentColor = _material.color;
-                    _material.DOColor(new Color(_currentColor.r, _currentColor.g, _currentColor.b, 0.5f), 0.3f);
+                    _material.DOColor(new Color(_material.color.r, _material.color.g, _material.color.b, 0.5f), 0.3f);
                 }
             }
             else
             {
-                _material.DOColor(_currentColor, 0.3f);
-                _material = null;
-                _hitObject = null;
+                foreach (var hitObject in _hitObjects)
+                {
+                    _material = hitObject.GetComponent<Collider>().GetComponent<MeshRenderer>().material;
+                    _material.DOColor(new Color(_material.color.r, _material.color.g, _material.color.b, 1f), 0.3f);
+                }
+                _hitObjects.Clear();
             }
         }
 

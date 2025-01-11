@@ -17,7 +17,10 @@ namespace Player
         [SerializeField] private float injuredMoveSpeed;
         [SerializeField] private float jumpForce;
 
-        [Header("References")]
+        [Header("Effects")]
+        [SerializeField] private ParticleSystem hitEffect;
+        
+        [Header("Class References")]
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private CameraShake cameraShake;
         [SerializeField] private HealthController healthController;
@@ -58,7 +61,6 @@ namespace Player
         {
             if (other.gameObject.CompareTag("Enemy"))
             {
-                healthController.Damage(20);
                 _isAttachedToEnemy = true;
             }
         }
@@ -75,7 +77,7 @@ namespace Player
             if (healthController.CurrentHealth <= 0 && !_isDead)
             {
                 _isDead = true;
-                PlayerSignals.Instance.OnPlayerDie?.Invoke();
+                CoreGameSignals.Instance.OnPlayerDie?.Invoke();
                 Fall();
             }
         }
@@ -152,14 +154,14 @@ namespace Player
         //This method is used to make the player fall when the player dies.
         private void Fall()
         {
-            PlayerSignals.Instance.OnPlayerHide?.Invoke();
+            CoreGameSignals.Instance.OnPlayerHide?.Invoke();
             _canMove = false;
         }
         
         //This method is used to stand up after the player hides
         private async UniTaskVoid StandUp()
         {
-            PlayerSignals.Instance.OnPlayerWakeUp?.Invoke();
+            CoreGameSignals.Instance.OnPlayerWakeUp?.Invoke();
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _canMove = true;
         }
@@ -172,6 +174,10 @@ namespace Player
             {
                 if (_isAttachedToEnemy && !_isDead)
                 {
+                    if (!hitEffect.isPlaying)
+                    {
+                        hitEffect.Play();
+                    }
                     cameraShake.ShakeCamera();
                     healthController.Damage(20);
                 }

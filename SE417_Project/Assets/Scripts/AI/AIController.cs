@@ -31,20 +31,20 @@ namespace AI
 
         private void OnEnable()
         {
-            PlayerSignals.Instance.OnPlayerHide += Stop;
-            PlayerSignals.Instance.OnPlayerWakeUp += Resume;
-            PlayerSignals.Instance.OnPlayerDie += Stop;
-            PlayerSignals.Instance.OnCompleteLevel += OnCompleteLevel;
+            CoreGameSignals.Instance.OnPlayerHide += Stop;
+            CoreGameSignals.Instance.OnPlayerWakeUp += Resume;
+            CoreGameSignals.Instance.OnPlayerDie += Stop;
+            CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
         }
         private void OnDisable()
         {
-            PlayerSignals.Instance.OnPlayerHide -= Stop;
-            PlayerSignals.Instance.OnPlayerWakeUp -= Resume;
-            PlayerSignals.Instance.OnPlayerDie -= Stop;
-            PlayerSignals.Instance.OnCompleteLevel -= OnCompleteLevel;
+            CoreGameSignals.Instance.OnPlayerHide -= Stop;
+            CoreGameSignals.Instance.OnPlayerWakeUp -= Resume;
+            CoreGameSignals.Instance.OnPlayerDie -= Stop;
+            CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;
         }
 
-        private void OnCompleteLevel(int arg0)
+        private void OnCompleteObjective(int level)
         {
             Stop();
         }

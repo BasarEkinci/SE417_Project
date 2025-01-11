@@ -15,21 +15,25 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerSignals.Instance.OnCompleteLevel += OnCompleteLevel;
+        CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
+        CoreGameSignals.Instance.OnCompleteLevel += OnCompleteLevel;
     }
     
     private void OnDisable()
     {
-        PlayerSignals.Instance.OnCompleteLevel -= OnCompleteLevel;
+        CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;
+        CoreGameSignals.Instance.OnCompleteLevel -= OnCompleteLevel;
         
     }
 
-    private void OnCompleteLevel(int levelIndex)
+    private void OnCompleteLevel(int level)
     {
-        if (levelIndex == 1)
-        {
-            ChangeCameraAsync().Forget();
-        }
+        
+    }
+
+    private void OnCompleteObjective(int level)
+    {
+        ChangeCameraAsync().Forget();
     }
     
     private async UniTask ChangeCameraAsync()

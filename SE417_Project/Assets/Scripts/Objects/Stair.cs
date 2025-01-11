@@ -16,7 +16,7 @@ namespace Objects
         private int _currentPieceCount;
         private void OnEnable()
         {
-            PlayerSignals.Instance.OnCollectObject += OnCollectObject;
+            CoreGameSignals.Instance.OnCollectObject += OnCollectObject;
         }
         private void Start()
         {
@@ -28,7 +28,7 @@ namespace Objects
         }
         private void OnDisable()
         {
-            PlayerSignals.Instance.OnCollectObject -= OnCollectObject;            
+            CoreGameSignals.Instance.OnCollectObject -= OnCollectObject;            
         }
 
         private void OnCollectObject()
@@ -39,7 +39,7 @@ namespace Objects
             if (_currentPieceCount == pieces.Count)
             {
                 //1 mean level 1 is completed
-                PlayerSignals.Instance.OnCompleteLevel?.Invoke(1);
+                CoreGameSignals.Instance.OnCompleteObjective?.Invoke(1);
             }   
         }
         
