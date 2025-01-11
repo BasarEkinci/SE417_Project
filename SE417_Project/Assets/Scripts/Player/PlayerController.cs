@@ -19,6 +19,8 @@ namespace Player
 
         [Header("Effects")]
         [SerializeField] private ParticleSystem hitEffect;
+        [SerializeField] private AudioClip hitSound;
+        [SerializeField] private AudioClip collectSound;
         
         [Header("Class References")]
         [SerializeField] private HealthBar healthBar;
@@ -28,6 +30,7 @@ namespace Player
         [SerializeField] private LayerDetector layerDetector;
         
         private Rigidbody _rigidbody;
+        private AudioSource _audioSource;
         private Vector2 _moveVector;
         private float _baseSpeed;
         private bool _isAttachedToEnemy;
@@ -38,6 +41,7 @@ namespace Player
         {
             inputHandler = GetComponent<InputHandler>();
             _rigidbody = GetComponent<Rigidbody>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -64,6 +68,30 @@ namespace Player
                 _isAttachedToEnemy = true;
             }
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Collectable"))
+            {
+                _audioSource.PlayOneShot(collectSound);
+            }
+
+            if (other.CompareTag("Medkit"))
+            {
+                if (healthController.MedkitCount < 3 && healthController.CurrentHealth >= healthController.MaxHealth)
+                {
+                    _audioSource.PlayOneShot(collectSound);
+                    healthController.AddMedkit();
+                    other.gameObject.SetActive(false);
+                }
+                else if (healthController.CurrentHealth < healthController.MaxHealth)
+                {
+                    healthController.Heal(20);
+                    other.gameObject.SetActive(false);   
+                }
+            }
+        }
+
         private void OnCollisionExit(Collision other)
         {
             if (other.gameObject.CompareTag("Enemy"))
@@ -178,6 +206,7 @@ namespace Player
                     {
                         hitEffect.Play();
                     }
+                    _audioSource.PlayOneShot(hitSound);
                     cameraShake.ShakeCamera();
                     healthController.Damage(20);
                 }

@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - Medkit
   - StairPiece
+  - FxTemporaire
+  - Collectable
   layers:
   - Default
   - TransparentFX

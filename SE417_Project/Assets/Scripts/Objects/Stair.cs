@@ -6,14 +6,24 @@ using DG.Tweening;
 using Signals;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Objects
 {
     public class Stair : MonoBehaviour
     {
         [SerializeField] private TMP_Text collectedPieceCountText;
+        [SerializeField] private Image collectedPieceImage; 
         [SerializeField] private List<GameObject> pieces;
+        [SerializeField] private AudioClip buildSound;
         private int _currentPieceCount;
+        private AudioSource _audioSource;
+
+        private void Awake()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+
         private void OnEnable()
         {
             CoreGameSignals.Instance.OnCollectObject += OnCollectObject;
@@ -34,6 +44,7 @@ namespace Objects
         private void OnCollectObject()
         {
             _currentPieceCount++;
+            collectedPieceImage.transform.DOScale(collectedPieceImage.transform.localScale * 1.1f,0.2f).SetLoops(2, LoopType.Yoyo);
             collectedPieceCountText.transform.DOScale(transform.localScale * 1.1f,0.2f).SetLoops(2, LoopType.Yoyo);
             collectedPieceCountText.text = $"{_currentPieceCount}/{pieces.Count}";
             if (_currentPieceCount == pieces.Count)
@@ -49,6 +60,7 @@ namespace Objects
             {
                 piece.SetActive(true);
                 piece.transform.DOScale(Vector3.zero,0.1f).From().SetEase(Ease.OutBack);
+                _audioSource.PlayOneShot(buildSound);
                 await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
             }
         }

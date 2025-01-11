@@ -11,19 +11,23 @@ namespace Player
     {
         public bool IsInjured => _currentHealth < injuredHealth;
         public int CurrentHealth => _currentHealth;
+        public int MedkitCount => _medkitCount;
         public int MaxHealth => maxHealth;
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private int maxHealth;
         [SerializeField] private int injuredHealth;
         [SerializeField] private List<Image> medkitIcons;
+        [SerializeField] private AudioClip healSound;
         
         private CameraShake _cameraShake;
+        private AudioSource _audioSource;
         private int _currentHealth;
         private int _medkitCount = 0;
         
         private void Awake()
         {
             _cameraShake = GetComponent<CameraShake>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -59,16 +63,21 @@ namespace Player
         
         public void Heal(int healAmount)
         {
-            if (_currentHealth >= maxHealth)
+            if (_currentHealth < maxHealth)
+            {
+                _audioSource.PlayOneShot(healSound);
+                _currentHealth += healAmount;
+            }
+        }
+
+        public void AddMedkit()
+        {
+            if (_currentHealth >= maxHealth && _medkitCount < medkitIcons.Count)
             {
                 medkitIcons[_medkitCount].color = Color.white;
                 medkitIcons[_medkitCount].transform.DOScale(transform.localScale * 1.2f, 0.1f).SetLoops(2, LoopType.Yoyo);
                 _medkitCount++;
-            }
-            if (_currentHealth < maxHealth)
-            {
-                _currentHealth += healAmount;
-            }
+            }   
         }
     }
 }
