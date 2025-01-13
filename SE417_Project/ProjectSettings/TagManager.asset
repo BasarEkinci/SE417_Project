@@ -8,8 +8,10 @@ TagManager:
   - Ground
   - Medkit
   - StairPiece
-  - FxTemporaire
   - Collectable
+  - Obstacle
+  - DangerArea
+  - Bed
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - PlayerHips
   - Enemy
   - Obstacle
-  - 
+  - Bed
   - 
   - 
   - 

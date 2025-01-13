@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3987399707930093736, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6518191092782949557, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
       propertyPath: m_Speed
@@ -984,6 +984,7 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
+  - component: {fileID: 330585550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1050,7 +1051,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.31622785, y: -7.6652107e-10, z: 2.5550706e-10, w: 0.9486833}
+  m_LocalRotation: {x: 0.31622785, y: 0.00000001059871, z: -0.0000000035329037, w: 0.9486833}
   m_LocalPosition: {x: -3.17, y: 7.5, z: -6.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1149,6 +1150,19 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &330585550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb293afd4cc1ed4c8dbc03271065d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followCam: {fileID: 1914060798}
 --- !u!4 &359501485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1672663432754721215, guid: 61af9c6820dd8e949aee4c846284cb00, type: 3}
@@ -1621,7 +1635,7 @@ GameObject:
   - component: {fileID: 512834121}
   m_Layer: 9
   m_Name: CardboardBox_LP (1)
-  m_TagString: Untagged
+  m_TagString: DangerArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1782,6 +1796,10 @@ PrefabInstance:
     - target: {fileID: 5041312272857562389, guid: 0fc5c43fbb64d744c9cf8ce9591823ec, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5041312272857562389, guid: 0fc5c43fbb64d744c9cf8ce9591823ec, type: 3}
+      propertyPath: m_TagString
+      value: DangerArea
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2822,6 +2840,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube.012
       objectReference: {fileID: 0}
+    - target: {fileID: 2885655515958571946, guid: 4afd301ee34a80443a9f6a4b492d6046, type: 3}
+      propertyPath: m_TagString
+      value: DangerArea
+      objectReference: {fileID: 0}
     - target: {fileID: 3364800842659096803, guid: 4afd301ee34a80443a9f6a4b492d6046, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -3461,6 +3483,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4909116526701999558, guid: 33b4b0698b6eed548873ca04b03b975d, type: 3}
+      propertyPath: m_TagString
+      value: DangerArea
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3831,6 +3857,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3036818051458121544, guid: 6e28294f8d97bbd4ca6f84bd3912c573, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3305535621254377626, guid: 6e28294f8d97bbd4ca6f84bd3912c573, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -3883,10 +3913,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3036818051458121544, guid: 6e28294f8d97bbd4ca6f84bd3912c573, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1814868029624277589, guid: 6e28294f8d97bbd4ca6f84bd3912c573, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1940139962}
   m_SourcePrefab: {fileID: 100100000, guid: 6e28294f8d97bbd4ca6f84bd3912c573, type: 3}
 --- !u!4 &1473823369 stripped
 Transform:
@@ -4242,6 +4276,10 @@ PrefabInstance:
     - target: {fileID: 2885655515958571946, guid: 4afd301ee34a80443a9f6a4b492d6046, type: 3}
       propertyPath: m_Name
       value: Cube.012 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885655515958571946, guid: 4afd301ee34a80443a9f6a4b492d6046, type: 3}
+      propertyPath: m_TagString
+      value: DangerArea
       objectReference: {fileID: 0}
     - target: {fileID: 3364800842659096803, guid: 4afd301ee34a80443a9f6a4b492d6046, type: 3}
       propertyPath: m_LocalScale.x
@@ -4897,7 +4935,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914060795}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3162278, y: -7.415656e-10, z: 1.80641e-10, w: 0.9486833}
+  m_LocalRotation: {x: 0.3162278, y: 0.000000010598707, z: -0.0000000035329024, w: 0.9486833}
   m_LocalPosition: {x: -3.17, y: 7.5, z: -6.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5395,6 +5433,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935681653}
   m_CullTransparentMesh: 1
+--- !u!1 &1940139958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1814868029624277589, guid: 6e28294f8d97bbd4ca6f84bd3912c573, type: 3}
+  m_PrefabInstance: {fileID: 1455038166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1940139962
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940139958}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.015211566
+  m_Height: 0.12059863
+  m_Direction: 2
+  m_Center: {x: 0, y: -0.00008999507, z: 0.030180205}
 --- !u!1001 &1955831955
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6354,7 +6420,7 @@ GameObject:
   - component: {fileID: 8569783675661241641}
   m_Layer: 9
   m_Name: J
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7029,7 +7095,7 @@ GameObject:
   - component: {fileID: 7766852855337858742}
   m_Layer: 9
   m_Name: N
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7808,9 +7874,10 @@ GameObject:
   - component: {fileID: 4840161656298078502}
   - component: {fileID: 6282424321938344499}
   - component: {fileID: 6282424321938344500}
-  m_Layer: 0
+  - component: {fileID: 6282424321938344501}
+  m_Layer: 10
   m_Name: Bed_Covers_Poly
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7830,7 +7897,7 @@ GameObject:
   - component: {fileID: 7618279743501158595}
   m_Layer: 9
   m_Name: W
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7909,7 +7976,7 @@ GameObject:
   - component: {fileID: 3469287838165095335}
   m_Layer: 9
   m_Name: CardboardBox_LP
-  m_TagString: Untagged
+  m_TagString: DangerArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7944,7 +8011,7 @@ GameObject:
   - component: {fileID: 7010044558360136596}
   m_Layer: 9
   m_Name: Q
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8025,7 +8092,7 @@ GameObject:
   - component: {fileID: 8074777829425071425}
   m_Layer: 9
   m_Name: O
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8358,7 +8425,7 @@ GameObject:
   - component: {fileID: 4317999038511762936}
   m_Layer: 9
   m_Name: U
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8825,7 +8892,7 @@ GameObject:
   - component: {fileID: 8989878024357994639}
   m_Layer: 9
   m_Name: L
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10495,7 +10562,7 @@ GameObject:
   - component: {fileID: 8802505684699319614}
   m_Layer: 9
   m_Name: E
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10979,9 +11046,9 @@ GameObject:
   - component: {fileID: 6512834510163040896}
   - component: {fileID: 4182152353073698839}
   - component: {fileID: 2019899547872949923}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head_Bed_Frame
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11265,7 +11332,7 @@ GameObject:
   - component: {fileID: 9199746342455385757}
   m_Layer: 9
   m_Name: M
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11694,7 +11761,7 @@ GameObject:
   - component: {fileID: 8198025179624707058}
   m_Layer: 9
   m_Name: X
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12620,7 +12687,7 @@ GameObject:
   - component: {fileID: 7081853420302033645}
   m_Layer: 9
   m_Name: P
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13385,7 +13452,7 @@ GameObject:
   - component: {fileID: 7508796538659975944}
   m_Layer: 9
   m_Name: F
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13506,7 +13573,7 @@ GameObject:
   - component: {fileID: 3915195631322308218}
   m_Layer: 9
   m_Name: H
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13911,7 +13978,7 @@ GameObject:
   - component: {fileID: 3867565690677328131}
   m_Layer: 9
   m_Name: A
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14634,7 +14701,7 @@ GameObject:
   - component: {fileID: 6865576129237180182}
   m_Layer: 9
   m_Name: V
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14808,7 +14875,7 @@ GameObject:
   - component: {fileID: 9181314931844322441}
   m_Layer: 9
   m_Name: R
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14836,7 +14903,7 @@ GameObject:
   - component: {fileID: 5313774961710516989}
   m_Layer: 9
   m_Name: D
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16572,7 +16639,7 @@ GameObject:
   - component: {fileID: 8341886080990379983}
   m_Layer: 9
   m_Name: I
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17101,7 +17168,7 @@ GameObject:
   - component: {fileID: 5981505469389800292}
   m_Layer: 9
   m_Name: T
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17410,7 +17477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3987399707930093736, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6518191092782949557, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
       propertyPath: m_Speed
@@ -17786,7 +17853,7 @@ GameObject:
   - component: {fileID: 6752313538192251730}
   m_Layer: 9
   m_Name: S
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19819,6 +19886,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4193735949019700322, guid: 934b7bfc252c4cf45876736e14e0cdef, type: 3}
+--- !u!65 &6282424321938344501
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886134585292474693}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 52.07395, y: 9.693747, z: 2.898154}
+  m_Center: {x: 0.91161084, y: -5.5649757, z: -13.415815}
 --- !u!1 &6283509967698169228
 GameObject:
   m_ObjectHideFlags: 0
@@ -20395,7 +20483,7 @@ GameObject:
   - component: {fileID: 8096436330076280697}
   m_Layer: 9
   m_Name: C
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21122,9 +21210,9 @@ GameObject:
   - component: {fileID: 2346102533114708425}
   - component: {fileID: 1966460657801608452}
   - component: {fileID: 7272773430710702184}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bed_Poly
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21461,7 +21549,7 @@ GameObject:
   - component: {fileID: 7108567423604488582}
   m_Layer: 9
   m_Name: K
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23265,7 +23353,7 @@ GameObject:
   - component: {fileID: 7616190019394466009}
   m_Layer: 9
   m_Name: Y
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23668,8 +23756,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1393a362da146554082b35e497b0f01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 6
   injuredMoveSpeed: 3.5
+  crouchingSpeed: 0.5
   jumpForce: 6
   hitEffect: {fileID: 9179304451404654932}
   hitSound: {fileID: 8300000, guid: 5e5104458fa47f045ab5be62f622b03e, type: 3}
@@ -23677,7 +23766,6 @@ MonoBehaviour:
   healthBar: {fileID: 17241775}
   cameraShake: {fileID: 8622271745687838365}
   healthController: {fileID: 374285813239646721}
-  inputHandler: {fileID: 2965691979536941177}
   layerDetector: {fileID: 7860117521260617971}
 --- !u!33 &7766852855337858741
 MeshFilter:
@@ -23750,7 +23838,7 @@ GameObject:
   - component: {fileID: 8439702099120610823}
   m_Layer: 9
   m_Name: Z
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23934,9 +24022,9 @@ GameObject:
   - component: {fileID: 2428144486120126066}
   - component: {fileID: 4461753684033620545}
   - component: {fileID: 3821899202268416364}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pillow_Poly
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24064,7 +24152,7 @@ GameObject:
   - component: {fileID: 7989741755721580464}
   m_Layer: 9
   m_Name: B
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35619,7 +35707,7 @@ GameObject:
   - component: {fileID: 8623424435744545888}
   m_Layer: 9
   m_Name: G
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36125,9 +36213,9 @@ GameObject:
   - component: {fileID: 8313018327833897927}
   - component: {fileID: 8328819746289445263}
   - component: {fileID: 8862149634110412773}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Feet_Bed_Frame1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36504,9 +36592,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5021610946268992919}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bed_Group
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

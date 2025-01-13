@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Camera;
 using DG.Tweening;
@@ -32,6 +33,7 @@ namespace Player
 
         private void Start()
         {
+            //Set all medkit icons to transparent at the beginning
             foreach (var icon in medkitIcons)
             {
                 icon.color = new Color(255, 255, 255, 0.2f);
@@ -67,6 +69,7 @@ namespace Player
             {
                 _audioSource.PlayOneShot(healSound);
                 _currentHealth += healAmount;
+                _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
             }
         }
 

@@ -12,9 +12,11 @@ namespace Player
     {
         public bool IsMoving => _moveVector.magnitude > 0;
         public bool IsJumping => !layerDetector.IsLayerDetected();
+        public bool IsCrouching => _isCrouching;
         [Header("Movement Settings")]
         [SerializeField] private float moveSpeed;
         [SerializeField] private float injuredMoveSpeed;
+        [SerializeField] private float crouchingSpeed;
         [SerializeField] private float jumpForce;
 
         [Header("Effects")]
@@ -26,7 +28,6 @@ namespace Player
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private CameraShake cameraShake;
         [SerializeField] private HealthController healthController;
-        [SerializeField] private InputHandler inputHandler;
         [SerializeField] private LayerDetector layerDetector;
         
         private Rigidbody _rigidbody;
@@ -36,10 +37,10 @@ namespace Player
         private bool _isAttachedToEnemy;
         private bool _canMove;
         private bool _isDead;
+        private bool _isCrouching;
         
         private void Awake()
         {
-            inputHandler = GetComponent<InputHandler>();
             _rigidbody = GetComponent<Rigidbody>();
             _audioSource = GetComponent<AudioSource>();
         }
@@ -48,11 +49,13 @@ namespace Player
         {
             _baseSpeed = moveSpeed;
             _canMove = true;
-            TakeDamageAsync().Forget();
         }
         
         private void Update()
         {
+            moveSpeed = _isCrouching ? crouchingSpeed : _baseSpeed;
+            Debug.Log(moveSpeed);
+            Crouch();
             UseMedkit();
             Hide();
             Dead();
@@ -66,9 +69,25 @@ namespace Player
             if (other.gameObject.CompareTag("Enemy"))
             {
                 _isAttachedToEnemy = true;
+                TakeDamageAsync(20,1).Forget();
+            }
+            else if (other.gameObject.CompareTag("Obstacle"))
+            {
+                _isAttachedToEnemy = true;
+                _audioSource.PlayOneShot(hitSound);
+                healthController.Damage(5);
+                if (!hitEffect.isPlaying)
+                {
+                    hitEffect.Play();
+                }
+                cameraShake.ShakeCamera();            }
+            else if (other.gameObject.CompareTag("DangerArea"))
+            {
+                _isAttachedToEnemy = true;
+                TakeDamageAsync(1,1).Forget();
             }
         }
-
+    
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Collectable"))
@@ -98,8 +117,24 @@ namespace Player
             {
                 _isAttachedToEnemy = false;
             }
+            else if (other.gameObject.CompareTag("Obstacle"))
+            {
+                _isAttachedToEnemy = false;
+            }
+            else if (other.gameObject.CompareTag("DangerArea"))
+            {
+                _isAttachedToEnemy = false;
+            }
         }
 
+        private void Crouch()
+        {
+            if (InputHandler.Instance.GetCrouchInput())
+            {
+                _isCrouching = !_isCrouching;
+            }
+        }
+        
         private void Dead()
         {
             if (healthController.CurrentHealth <= 0 && !_isDead)
@@ -112,7 +147,7 @@ namespace Player
 
         private void UseMedkit()
         {
-            if (inputHandler.GetHealInput() && healthController.CurrentHealth < healthController.MaxHealth)
+            if (InputHandler.Instance.GetHealInput() && healthController.CurrentHealth < healthController.MaxHealth)
             {
                 healthController.UseMedkit();
             }
@@ -123,7 +158,7 @@ namespace Player
             {
                 return;
             }
-            if (inputHandler.GetHideInput())
+            if (InputHandler.Instance.GetHideInput())
             {
                 if (_canMove)
                 {
@@ -143,7 +178,7 @@ namespace Player
             {
                 return;
             }
-            if (inputHandler.GetJumpInput() && layerDetector.IsLayerDetected())
+            if (InputHandler.Instance.GetJumpInput() && layerDetector.IsLayerDetected())
             {
                 if (!_canMove)
                 {
@@ -154,7 +189,7 @@ namespace Player
         }
         private void Move()
         {
-            _moveVector = inputHandler.GetMoveInput();
+            _moveVector = InputHandler.Instance.GetMoveInput();
             moveSpeed = healthController.IsInjured ? injuredMoveSpeed : _baseSpeed;
             Vector3 movement = new Vector3(_moveVector.x, 0, _moveVector.y) * moveSpeed;
             if (!_canMove)
@@ -193,24 +228,21 @@ namespace Player
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _canMove = true;
         }
-        
-        
+
+        private void Damage(int damage)
+        {
+            healthController.Damage(damage);
+        }
         //This method is used to take damage every second if the player is attached to the enemy
-        private async UniTaskVoid TakeDamageAsync()
+        private async UniTaskVoid TakeDamageAsync(int damage, float duration)
         {
             while (true)
             {
                 if (_isAttachedToEnemy && !_isDead)
                 {
-                    if (!hitEffect.isPlaying)
-                    {
-                        hitEffect.Play();
-                    }
-                    _audioSource.PlayOneShot(hitSound);
-                    cameraShake.ShakeCamera();
-                    healthController.Damage(20);
+
                 }
-                await UniTask.Delay(TimeSpan.FromSeconds(1f));
+                await UniTask.Delay(TimeSpan.FromSeconds(duration));
             }
         }
     }

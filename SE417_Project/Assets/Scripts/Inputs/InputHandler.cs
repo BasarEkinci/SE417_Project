@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using Extensions;
+using UnityEngine;
 
 namespace Inputs
 {
-    public class InputHandler : MonoBehaviour
+    public class InputHandler : MonoSingleton<InputHandler>
     {
         private PlayerInputs _playerInputs;
 
@@ -32,6 +32,11 @@ namespace Inputs
         public bool GetHealInput()
         {
             return _playerInputs.Player.Heal.triggered;
+        }
+        
+        public bool GetCrouchInput()
+        {
+            return _playerInputs.Player.Crouch.triggered;
         }
         
         public Vector2 GetMoveInput()

@@ -13,6 +13,7 @@ namespace Player
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
         private static readonly int IsJumping = Animator.StringToHash("IsJumping");
         private static readonly int IsStandingUp = Animator.StringToHash("IsStandingUp");
+        private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
         private void Awake()
         {
             _playerController = GetComponent<PlayerController>();
@@ -42,6 +43,7 @@ namespace Player
             _animator.SetBool(IsMoving, _playerController.IsMoving);
             _animator.SetBool(IsJumping, _playerController.IsJumping);
             _animator.SetBool(IsInjured, _healthController.IsInjured);
+            _animator.SetBool(IsCrouching, _playerController.IsCrouching);
         }
         
         private void Fall()
