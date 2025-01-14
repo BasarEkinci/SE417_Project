@@ -13,7 +13,7 @@ namespace Camera
         
         private bool _isPlayerCrouching;
 
-        private void Awake()
+        private void OnEnable()
         {
             InputHandler.Instance.PlayerInputs.Player.Crouch.performed += OnCrouchPerformed;
         }
