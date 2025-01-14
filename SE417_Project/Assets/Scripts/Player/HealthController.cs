@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Camera;
 using DG.Tweening;
+using Signals;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ namespace Player
 {
     public class HealthController : MonoBehaviour
     {
+        public bool IsDead => _currentHealth <= 0;
         public bool IsInjured => _currentHealth < injuredHealth;
         public int CurrentHealth => _currentHealth;
         public int MedkitCount => _medkitCount;
@@ -52,6 +54,11 @@ namespace Player
             {
                 _currentHealth -= damageAmount;
                 _cameraShake.ShakeCamera();
+            }
+
+            if (_currentHealth <= 0)
+            {
+                CoreGameSignals.Instance.OnPlayerDie?.Invoke();
             }
         }
 

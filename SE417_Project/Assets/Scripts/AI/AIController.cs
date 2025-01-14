@@ -10,11 +10,11 @@ namespace AI
     {
         [SerializeField] private bool isActive;
         [SerializeField] private Transform playerTransform;
-        [SerializeField] private Transform arms;
         
         private NavMeshAgent _agent;
         private Animator _animator;
         private bool _canMove;
+        private bool _isPlayerAlive;
         private float _baseSpeed;
         private void Awake()
         {
@@ -33,15 +33,20 @@ namespace AI
         {
             CoreGameSignals.Instance.OnPlayerHide += Stop;
             CoreGameSignals.Instance.OnPlayerWakeUp += Resume;
-            CoreGameSignals.Instance.OnPlayerDie += Stop;
+            CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
             CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
         }
         private void OnDisable()
         {
             CoreGameSignals.Instance.OnPlayerHide -= Stop;
             CoreGameSignals.Instance.OnPlayerWakeUp -= Resume;
-            CoreGameSignals.Instance.OnPlayerDie -= Stop;
+            CoreGameSignals.Instance.OnPlayerDie -= OnPlayerDie;
             CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;
+        }
+
+        private void OnPlayerDie()
+        {
+            _isPlayerAlive = false;
         }
 
         private void OnCompleteObjective(int level)
@@ -69,6 +74,7 @@ namespace AI
         
         private async void Resume()
         {   
+            if(!_isPlayerAlive) return;
             _canMove = true;
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _animator.enabled = true;

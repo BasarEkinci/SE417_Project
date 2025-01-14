@@ -21,11 +21,11 @@ namespace Camera
 
             if (_isPlayerCrouching)
             {
-                followCam.FollowOffset.y = _crouchPos;
+                followCam.FollowOffset.y = Mathf.Lerp(followCam.FollowOffset.y,_crouchPos,Time.deltaTime);
             }
             else
             {
-                followCam.FollowOffset.y = _defaultPos;
+                followCam.FollowOffset.y = Mathf.Lerp(followCam.FollowOffset.y,_defaultPos,Time.deltaTime);
             }
         }
     }

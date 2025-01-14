@@ -5,6 +5,7 @@ namespace Inputs
 {
     public class InputHandler : MonoSingleton<InputHandler>
     {
+        public PlayerInputs PlayerInputs => _playerInputs;
         private PlayerInputs _playerInputs;
 
         private void Awake()

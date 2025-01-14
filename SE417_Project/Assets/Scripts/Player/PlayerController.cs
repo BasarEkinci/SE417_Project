@@ -5,14 +5,20 @@ using Inputs;
 using Signals;
 using UI;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using Utilities;
 
 namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
         public bool IsMoving => _moveVector.magnitude > 0;
-        public bool IsJumping => !layerDetector.IsLayerDetected();
+        public bool IsJumping => !layerDetector.IsLayersDetected();
         public bool IsCrouching => _isCrouching;
+
+        [Header("Colliders")]
+        [SerializeField] private Collider baseCollider;
+        [SerializeField] private Collider crouchCollider;
         [Header("Movement Settings")]
         [SerializeField] private float moveSpeed;
         [SerializeField] private float injuredMoveSpeed;
@@ -36,7 +42,6 @@ namespace Player
         private float _baseSpeed;
         private bool _isAttachedToEnemy;
         private bool _canMove;
-        private bool _isDead;
         private bool _isCrouching;
         
         private void Awake()
@@ -44,141 +49,53 @@ namespace Player
             _rigidbody = GetComponent<Rigidbody>();
             _audioSource = GetComponent<AudioSource>();
         }
-
-        private void Start()
-        {
-            _baseSpeed = moveSpeed;
-            _canMove = true;
-        }
         
-        private void Update()
+        private void OnEnable()
         {
-            moveSpeed = _isCrouching ? crouchingSpeed : _baseSpeed;
-            Debug.Log(moveSpeed);
-            Crouch();
-            UseMedkit();
-            Hide();
-            Dead();
-            RotateToMoveDirection();
-            Move();
-            Jump();
+            InputHandler.Instance.PlayerInputs.Player.Crouch.performed += OnCrouchPerformed;
+            InputHandler.Instance.PlayerInputs.Player.Jump.performed += OnJumpPerformed;
+            InputHandler.Instance.PlayerInputs.Player.Hide.performed += OnHidePerformed;
+            InputHandler.Instance.PlayerInputs.Player.Heal.performed += OnHealPerformed;
+            //CoreGameSignals.Instance.OnPlayerDie += Hide;
         }
 
-        private void OnCollisionEnter(Collision other)
+        //When player press the "E" key. If the player health is less than max health, the player can use medkit
+        private void OnHealPerformed(InputAction.CallbackContext obj)
         {
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                _isAttachedToEnemy = true;
-                TakeDamageAsync(20,1).Forget();
-            }
-            else if (other.gameObject.CompareTag("Obstacle"))
-            {
-                _isAttachedToEnemy = true;
-                _audioSource.PlayOneShot(hitSound);
-                healthController.Damage(5);
-                if (!hitEffect.isPlaying)
-                {
-                    hitEffect.Play();
-                }
-                cameraShake.ShakeCamera();            }
-            else if (other.gameObject.CompareTag("DangerArea"))
-            {
-                _isAttachedToEnemy = true;
-                TakeDamageAsync(1,1).Forget();
-            }
-        }
-    
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Collectable"))
-            {
-                _audioSource.PlayOneShot(collectSound);
-            }
-
-            if (other.CompareTag("Medkit"))
-            {
-                if (healthController.MedkitCount < 3 && healthController.CurrentHealth >= healthController.MaxHealth)
-                {
-                    _audioSource.PlayOneShot(collectSound);
-                    healthController.AddMedkit();
-                    other.gameObject.SetActive(false);
-                }
-                else if (healthController.CurrentHealth < healthController.MaxHealth)
-                {
-                    healthController.Heal(20);
-                    other.gameObject.SetActive(false);   
-                }
-            }
-        }
-
-        private void OnCollisionExit(Collision other)
-        {
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                _isAttachedToEnemy = false;
-            }
-            else if (other.gameObject.CompareTag("Obstacle"))
-            {
-                _isAttachedToEnemy = false;
-            }
-            else if (other.gameObject.CompareTag("DangerArea"))
-            {
-                _isAttachedToEnemy = false;
-            }
-        }
-
-        private void Crouch()
-        {
-            if (InputHandler.Instance.GetCrouchInput())
-            {
-                _isCrouching = !_isCrouching;
-            }
-        }
-        
-        private void Dead()
-        {
-            if (healthController.CurrentHealth <= 0 && !_isDead)
-            {
-                _isDead = true;
-                CoreGameSignals.Instance.OnPlayerDie?.Invoke();
-                Fall();
-            }
-        }
-
-        private void UseMedkit()
-        {
-            if (InputHandler.Instance.GetHealInput() && healthController.CurrentHealth < healthController.MaxHealth)
+            if (healthController.CurrentHealth < healthController.MaxHealth)
             {
                 healthController.UseMedkit();
             }
         }
-        private void Hide()
+
+        //When player press the "R" key. If the player is not dead, the player can hide by falling down
+        private void OnHidePerformed(InputAction.CallbackContext obj)
         {
-            if (_isDead)
+            if (healthController.IsDead)
             {
                 return;
             }
-            if (InputHandler.Instance.GetHideInput())
+
+            if (_canMove)
             {
-                if (_canMove)
-                {
-                    Fall();
-                }
-                else
-                {
-                    StandUp().Forget();
-                }
+                CoreGameSignals.Instance.OnPlayerHide?.Invoke();
+                _canMove = false;
+            }
+            else
+            {
+                StandUp().Forget();
             }
         }
-        
-        private void Jump()
+
+        //When player press the "Space" key. If the player health is less than 25 or crouching, the player can't jump
+        private void OnJumpPerformed(InputAction.CallbackContext obj)
         {
-            //if the player is injured and the health is less than 25, the player can't jump
-            if (healthController.IsInjured)
+            //if the player health is less than 25 or crouching, the player can't jump
+            if (healthController.IsInjured || _isCrouching)
             {
                 return;
             }
-            if (InputHandler.Instance.GetJumpInput() && layerDetector.IsLayerDetected())
+            if (InputHandler.Instance.GetJumpInput() && layerDetector.IsLayersDetected())
             {
                 if (!_canMove)
                 {
@@ -186,6 +103,95 @@ namespace Player
                 }
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
+        }
+
+        private void OnCrouchPerformed(InputAction.CallbackContext obj)
+        {
+            if (_isCrouching && layerDetector.IsLayersDetected())
+            {
+                Debug.Log("Bed Layer Detected");
+                return;
+            }
+            _isCrouching = !_isCrouching;
+            baseCollider.enabled = !_isCrouching;
+            crouchCollider.enabled = _isCrouching;
+        }
+
+        private void Start()
+        {
+            _baseSpeed = moveSpeed;
+            _canMove = true;
+            baseCollider.enabled = true;
+            crouchCollider.enabled = false;
+        }
+        
+        private void Update()
+        {
+            layerDetector.IsLayersDetected();
+            moveSpeed = _isCrouching ? crouchingSpeed : _baseSpeed;
+            RotateToMoveDirection();
+            Debug.Log(_isAttachedToEnemy);
+            Move();
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+
+            switch (other.gameObject.tag)
+            {
+                case "Enemy":
+                    _isAttachedToEnemy = true;
+                    Debug.Log("Enemy");
+                    TakeDamageAsync(20,1).Forget();
+                    break;
+                case "Obstacle":
+                    _isAttachedToEnemy = true;
+                    _audioSource.PlayOneShot(hitSound);
+                    healthController.Damage(5);
+                    if (!hitEffect.isPlaying)
+                    {
+                        hitEffect.Play();
+                    }
+                    cameraShake.ShakeCamera();
+                    break;
+                case "DangerArea":
+                    Debug.Log("DangerArea");
+                    _isAttachedToEnemy = true;
+                    TakeDamageAsync(1,1).Forget();
+                    break;
+            }
+        }
+    
+        private void OnTriggerEnter(Collider other)
+        {
+
+            switch (other.tag)
+            {
+                case "Collectable":
+                    _audioSource.PlayOneShot(collectSound);
+                    break;
+                case "Medkit":
+                    if (healthController.MedkitCount < 3 && healthController.CurrentHealth >= healthController.MaxHealth)
+                    {
+                        _audioSource.PlayOneShot(collectSound);
+                        healthController.AddMedkit();
+                        other.gameObject.SetActive(false);
+                    }
+                    else if (healthController.CurrentHealth < healthController.MaxHealth)
+                    {
+                        healthController.Heal(20);
+                        other.gameObject.SetActive(false);   
+                    }
+                    break;
+            }
+        }
+        private void OnCollisionExit(Collision other)
+        {
+            _isAttachedToEnemy = other.gameObject.tag switch
+            {
+                "Enemy" or "Obstacle" or "DangerArea" => false,
+                _ => _isAttachedToEnemy
+            };
         }
         private void Move()
         {
@@ -213,14 +219,6 @@ namespace Player
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
         }
-
-        //This method is used to make the player fall when the player dies.
-        private void Fall()
-        {
-            CoreGameSignals.Instance.OnPlayerHide?.Invoke();
-            _canMove = false;
-        }
-        
         //This method is used to stand up after the player hides
         private async UniTaskVoid StandUp()
         {
@@ -228,19 +226,20 @@ namespace Player
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _canMove = true;
         }
-
-        private void Damage(int damage)
-        {
-            healthController.Damage(damage);
-        }
         //This method is used to take damage every second if the player is attached to the enemy
         private async UniTaskVoid TakeDamageAsync(int damage, float duration)
         {
             while (true)
             {
-                if (_isAttachedToEnemy && !_isDead)
+                if (_isAttachedToEnemy && !healthController.IsDead)
                 {
-
+                    _audioSource.PlayOneShot(hitSound);
+                    healthController.Damage(damage);
+                    if (!hitEffect.isPlaying)
+                    {
+                        hitEffect.Play();
+                    }
+                    cameraShake.ShakeCamera();
                 }
                 await UniTask.Delay(TimeSpan.FromSeconds(duration));
             }
