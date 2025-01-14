@@ -56,7 +56,14 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Jump.performed += OnJumpPerformed;
             InputHandler.Instance.PlayerInputs.Player.Hide.performed += OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed += OnHealPerformed;
-            //CoreGameSignals.Instance.OnPlayerDie += Hide;
+        }
+
+        private void OnDisable()
+        {
+            InputHandler.Instance.PlayerInputs.Player.Crouch.performed -= OnCrouchPerformed;
+            InputHandler.Instance.PlayerInputs.Player.Jump.performed -= OnJumpPerformed;
+            InputHandler.Instance.PlayerInputs.Player.Hide.performed -= OnHidePerformed;
+            InputHandler.Instance.PlayerInputs.Player.Heal.performed -= OnHealPerformed;
         }
 
         //When player press the "E" key. If the player health is less than max health, the player can use medkit
@@ -95,7 +102,7 @@ namespace Player
             {
                 return;
             }
-            if (InputHandler.Instance.GetJumpInput() && layerDetector.IsLayersDetected())
+            if (layerDetector.IsLayersDetected())
             {
                 if (!_canMove)
                 {
@@ -107,9 +114,9 @@ namespace Player
 
         private void OnCrouchPerformed(InputAction.CallbackContext obj)
         {
-            if (_isCrouching && layerDetector.IsLayersDetected())
+            if (_isCrouching && layerDetector.IsLayerDetected("Bed"))
             {
-                Debug.Log("Bed Layer Detected");
+                Debug.Log("Bed Layer Detected, cannot get up");
                 return;
             }
             _isCrouching = !_isCrouching;
@@ -130,7 +137,6 @@ namespace Player
             layerDetector.IsLayersDetected();
             moveSpeed = _isCrouching ? crouchingSpeed : _baseSpeed;
             RotateToMoveDirection();
-            Debug.Log(_isAttachedToEnemy);
             Move();
         }
 

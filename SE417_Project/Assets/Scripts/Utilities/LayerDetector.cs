@@ -13,6 +13,12 @@ namespace Utilities
         {
             return Physics.CheckSphere(transform.position, detectionRadius, layerMask);
         }
+
+        internal bool IsLayerDetected(string layerName)
+        {
+            return Physics.CheckSphere(transform.position, detectionRadius, LayerMask.GetMask(layerName));
+        }
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
