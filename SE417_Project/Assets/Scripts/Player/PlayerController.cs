@@ -13,7 +13,7 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         public bool IsMoving => _moveVector.magnitude > 0;
-        public bool IsJumping => !layerDetector.IsLayersDetected();
+        public bool IsJumping => !layerDetectorDown.IsLayerDetected();
         public bool IsCrouching => _isCrouching;
 
         [Header("Colliders")]
@@ -25,8 +25,11 @@ namespace Player
         [SerializeField] private float crouchingSpeed;
         [SerializeField] private float jumpForce;
 
-        [Header("Effects")]
+        [Header("VFX")]
         [SerializeField] private ParticleSystem hitEffect;
+        [SerializeField] private ParticleSystem healEffect;
+        
+        [Header("SFX")]
         [SerializeField] private AudioClip hitSound;
         [SerializeField] private AudioClip collectSound;
         
@@ -34,7 +37,8 @@ namespace Player
         [SerializeField] private HealthBar healthBar;
         [SerializeField] private CameraShake cameraShake;
         [SerializeField] private HealthController healthController;
-        [SerializeField] private LayerDetector layerDetector;
+        [SerializeField] private LayerDetector layerDetectorDown;
+        [SerializeField] private LayerDetector layerDetectorUp;
         
         private Rigidbody _rigidbody;
         private AudioSource _audioSource;
@@ -43,7 +47,9 @@ namespace Player
         private bool _isAttachedToEnemy;
         private bool _canMove;
         private bool _isCrouching;
-        
+        private bool _canStandUp;
+
+        #region Unity Methods (Awake, OnEnable, OnDisable, Start, Update)
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -65,6 +71,83 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Hide.performed -= OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed -= OnHealPerformed;
         }
+
+        private void Start()
+        {
+            _baseSpeed = moveSpeed;
+            _canMove = true;
+            baseCollider.enabled = true;
+            crouchCollider.enabled = false;
+        }
+        
+        private void Update()
+        {
+            layerDetectorDown.IsLayerDetected();
+            _canStandUp = !layerDetectorUp.IsLayerDetected();
+            moveSpeed = _isCrouching ? crouchingSpeed : _baseSpeed;
+            RotateToMoveDirection();
+            Move();
+        }
+        #endregion
+        #region Unity Methods (Physics)
+        private void OnCollisionEnter(Collision other)
+        {
+
+            switch (other.gameObject.tag)
+            {
+                case "Enemy":
+                    _isAttachedToEnemy = true;
+                    TakeDamageAsync(20,1).Forget();
+                    break;
+                case "Obstacle":
+                    _isAttachedToEnemy = true;
+                    _audioSource.PlayOneShot(hitSound);
+                    healthController.Damage(5);
+                    if (!hitEffect.isPlaying)
+                    {
+                        hitEffect.Play();
+                    }
+                    cameraShake.ShakeCamera();
+                    break;
+                case "DangerArea":
+                    TakeDamageAsync(1,1).Forget();
+                    break;
+            }
+        }
+    
+        private void OnTriggerEnter(Collider other)
+        {
+
+            switch (other.tag)
+            {
+                case "Collectable":
+                    _audioSource.PlayOneShot(collectSound);
+                    break;
+                case "Medkit":
+                    if (healthController.MedkitCount < 3 && healthController.CurrentHealth >= healthController.MaxHealth)
+                    {
+                        _audioSource.PlayOneShot(collectSound);
+                        healthController.AddMedkit();
+                        other.gameObject.SetActive(false);
+                    }
+                    else if (healthController.CurrentHealth < healthController.MaxHealth)
+                    {
+                        healthController.Heal(20);
+                        other.gameObject.SetActive(false);   
+                    }
+                    break;
+            }
+        }
+        private void OnCollisionExit(Collision other)
+        {
+            _isAttachedToEnemy = other.gameObject.tag switch
+            {
+                "Enemy" or "Obstacle" or "DangerArea" => false,
+                _ => _isAttachedToEnemy
+            };
+        }
+        #endregion
+        #region Input Actions
 
         //When player press the "E" key. If the player health is less than max health, the player can use medkit
         private void OnHealPerformed(InputAction.CallbackContext obj)
@@ -102,7 +185,7 @@ namespace Player
             {
                 return;
             }
-            if (layerDetector.IsLayersDetected())
+            if (layerDetectorDown.IsLayerDetected())
             {
                 if (!_canMove)
                 {
@@ -114,9 +197,8 @@ namespace Player
 
         private void OnCrouchPerformed(InputAction.CallbackContext obj)
         {
-            if (_isCrouching && layerDetector.IsLayerDetected("Bed"))
+            if (!_canStandUp)
             {
-                Debug.Log("Bed Layer Detected, cannot get up");
                 return;
             }
             _isCrouching = !_isCrouching;
@@ -124,81 +206,9 @@ namespace Player
             crouchCollider.enabled = _isCrouching;
         }
 
-        private void Start()
-        {
-            _baseSpeed = moveSpeed;
-            _canMove = true;
-            baseCollider.enabled = true;
-            crouchCollider.enabled = false;
-        }
-        
-        private void Update()
-        {
-            layerDetector.IsLayersDetected();
-            moveSpeed = _isCrouching ? crouchingSpeed : _baseSpeed;
-            RotateToMoveDirection();
-            Move();
-        }
+        #endregion
+        #region Player Methods
 
-        private void OnCollisionEnter(Collision other)
-        {
-
-            switch (other.gameObject.tag)
-            {
-                case "Enemy":
-                    _isAttachedToEnemy = true;
-                    Debug.Log("Enemy");
-                    TakeDamageAsync(20,1).Forget();
-                    break;
-                case "Obstacle":
-                    _isAttachedToEnemy = true;
-                    _audioSource.PlayOneShot(hitSound);
-                    healthController.Damage(5);
-                    if (!hitEffect.isPlaying)
-                    {
-                        hitEffect.Play();
-                    }
-                    cameraShake.ShakeCamera();
-                    break;
-                case "DangerArea":
-                    Debug.Log("DangerArea");
-                    _isAttachedToEnemy = true;
-                    TakeDamageAsync(1,1).Forget();
-                    break;
-            }
-        }
-    
-        private void OnTriggerEnter(Collider other)
-        {
-
-            switch (other.tag)
-            {
-                case "Collectable":
-                    _audioSource.PlayOneShot(collectSound);
-                    break;
-                case "Medkit":
-                    if (healthController.MedkitCount < 3 && healthController.CurrentHealth >= healthController.MaxHealth)
-                    {
-                        _audioSource.PlayOneShot(collectSound);
-                        healthController.AddMedkit();
-                        other.gameObject.SetActive(false);
-                    }
-                    else if (healthController.CurrentHealth < healthController.MaxHealth)
-                    {
-                        healthController.Heal(20);
-                        other.gameObject.SetActive(false);   
-                    }
-                    break;
-            }
-        }
-        private void OnCollisionExit(Collision other)
-        {
-            _isAttachedToEnemy = other.gameObject.tag switch
-            {
-                "Enemy" or "Obstacle" or "DangerArea" => false,
-                _ => _isAttachedToEnemy
-            };
-        }
         private void Move()
         {
             _moveVector = InputHandler.Instance.GetMoveInput();
@@ -250,5 +260,7 @@ namespace Player
                 await UniTask.Delay(TimeSpan.FromSeconds(duration));
             }
         }
+
+        #endregion
     }
 }

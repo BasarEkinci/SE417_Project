@@ -21,6 +21,8 @@ namespace Player
         [SerializeField] private int injuredHealth;
         [SerializeField] private List<Image> medkitIcons;
         [SerializeField] private AudioClip healSound;
+        [SerializeField] private GameObject healEffect;
+        [SerializeField] private GameObject collectEffect;
         
         private CameraShake _cameraShake;
         private AudioSource _audioSource;
@@ -74,6 +76,7 @@ namespace Player
         {
             if (_currentHealth < maxHealth)
             {
+                Instantiate(healEffect, transform.position, Quaternion.identity,transform);
                 _audioSource.PlayOneShot(healSound);
                 _currentHealth += healAmount;
                 _currentHealth = Mathf.Clamp(_currentHealth, 0, maxHealth);
@@ -84,6 +87,7 @@ namespace Player
         {
             if (_currentHealth >= maxHealth && _medkitCount < medkitIcons.Count)
             {
+                Instantiate(collectEffect, transform.position, Quaternion.identity);
                 medkitIcons[_medkitCount].color = Color.white;
                 medkitIcons[_medkitCount].transform.DOScale(transform.localScale * 1.2f, 0.1f).SetLoops(2, LoopType.Yoyo);
                 _medkitCount++;

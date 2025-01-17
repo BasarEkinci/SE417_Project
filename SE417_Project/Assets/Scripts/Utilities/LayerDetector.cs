@@ -9,16 +9,10 @@ namespace Utilities
 
     
         //To detect all selected layers
-        internal bool IsLayersDetected()
+        internal bool IsLayerDetected()
         {
             return Physics.CheckSphere(transform.position, detectionRadius, layerMask);
         }
-
-        internal bool IsLayerDetected(string layerName)
-        {
-            return Physics.CheckSphere(transform.position, detectionRadius, LayerMask.GetMask(layerName));
-        }
-        
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
