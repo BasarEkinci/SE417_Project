@@ -27,25 +27,19 @@ namespace AI
         private void Start()
         {
             _baseSpeed = _agent.speed;
-            _animator.enabled = false;
             _canMove = true;
         }
 
         private void OnEnable()
         {
+            SubscribeEvents();
             _audioSource.clip = audioClip;
+            _animator.enabled = true;
             _audioSource.Play();
-            CoreGameSignals.Instance.OnPlayerHide += Stop;
-            CoreGameSignals.Instance.OnPlayerWakeUp += Resume;
-            CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
-            CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
         }
         private void OnDisable()
         {
-            CoreGameSignals.Instance.OnPlayerHide -= Stop;
-            CoreGameSignals.Instance.OnPlayerWakeUp -= Resume;
-            CoreGameSignals.Instance.OnPlayerDie -= OnPlayerDie;
-            CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;
+            UnsubscribeEvents();
         }
 
         private void OnPlayerDie()
@@ -76,15 +70,31 @@ namespace AI
             _canMove = false;
             _agent.speed = 0;
             _animator.enabled = false;
+            _audioSource.Stop();
         }
         
         private async void Resume()
         {   
-            if(!_isPlayerAlive) return;
             _canMove = true;
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _animator.enabled = true;
             _agent.speed = _baseSpeed;
+            _audioSource.Play();
+        }
+        
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.OnPlayerHide += Stop;
+            CoreGameSignals.Instance.OnPlayerWakeUp += Resume;
+            CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
+            CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
+        }
+        private void UnsubscribeEvents()
+        {
+            CoreGameSignals.Instance.OnPlayerHide -= Stop;
+            CoreGameSignals.Instance.OnPlayerWakeUp -= Resume;
+            CoreGameSignals.Instance.OnPlayerDie -= OnPlayerDie;
+            CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;
         }
     }
 }

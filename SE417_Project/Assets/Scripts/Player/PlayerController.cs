@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Camera;
 using Cysharp.Threading.Tasks;
 using Inputs;
@@ -7,6 +8,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities;
+using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -27,11 +29,11 @@ namespace Player
 
         [Header("VFX")]
         [SerializeField] private ParticleSystem hitEffect;
-        [SerializeField] private ParticleSystem healEffect;
         
         [Header("SFX")]
         [SerializeField] private AudioClip hitSound;
         [SerializeField] private AudioClip collectSound;
+        [SerializeField] private List<AudioClip> jumpSounds;
         
         [Header("Class References")]
         [SerializeField] private HealthBar healthBar;
@@ -62,6 +64,8 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Jump.performed += OnJumpPerformed;
             InputHandler.Instance.PlayerInputs.Player.Hide.performed += OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed += OnHealPerformed;
+            CoreGameSignals.Instance.OnCompleteLevel += _=> _isAttachedToEnemy = false;
+            CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
         }
 
         private void OnDisable()
@@ -70,8 +74,9 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Jump.performed -= OnJumpPerformed;
             InputHandler.Instance.PlayerInputs.Player.Hide.performed -= OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed -= OnHealPerformed;
+            CoreGameSignals.Instance.OnCompleteLevel -= _=> _isAttachedToEnemy = false;
+            CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
         }
-
         private void Start()
         {
             _baseSpeed = moveSpeed;
@@ -82,9 +87,20 @@ namespace Player
         
         private void Update()
         {
+            if (healthController.IsInjured)
+            {
+                moveSpeed = injuredMoveSpeed;
+            }
+            else if (_isCrouching)
+            {
+                moveSpeed = crouchingSpeed;
+            }
+            else
+            {
+                moveSpeed = _baseSpeed;
+            }
             layerDetectorDown.IsLayerDetected();
             _canStandUp = !layerDetectorUp.IsLayerDetected();
-            moveSpeed = _isCrouching ? crouchingSpeed : _baseSpeed;
             RotateToMoveDirection();
             Move();
         }
@@ -109,7 +125,8 @@ namespace Player
                     }
                     cameraShake.ShakeCamera();
                     break;
-                case "DangerArea":
+                case "DangerArea": 
+                    _isAttachedToEnemy = true;
                     TakeDamageAsync(1,1).Forget();
                     break;
             }
@@ -191,6 +208,7 @@ namespace Player
                 {
                     return;
                 }
+                _audioSource.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Count)]);
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
@@ -208,11 +226,15 @@ namespace Player
 
         #endregion
         #region Player Methods
-
+        private void OnPlayerDie()
+        {
+            _isAttachedToEnemy = false;
+            CoreGameSignals.Instance.OnPlayerHide?.Invoke();
+            _canMove = false;
+        }
         private void Move()
         {
             _moveVector = InputHandler.Instance.GetMoveInput();
-            moveSpeed = healthController.IsInjured ? injuredMoveSpeed : _baseSpeed;
             Vector3 movement = new Vector3(_moveVector.x, 0, _moveVector.y) * moveSpeed;
             if (!_canMove)
             {
