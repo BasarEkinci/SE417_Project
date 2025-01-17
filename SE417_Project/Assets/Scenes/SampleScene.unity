@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3194964488509487660, guid: 6597726479e70d94ba1f2363781f1550, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 5176877494958465207, guid: 6597726479e70d94ba1f2363781f1550, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.073
@@ -291,6 +295,10 @@ PrefabInstance:
     - target: {fileID: 2356676924228178460, guid: 61af9c6820dd8e949aee4c846284cb00, type: 3}
       propertyPath: m_Name
       value: Lego_Black (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356676924228178460, guid: 61af9c6820dd8e949aee4c846284cb00, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -452,75 +460,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &192443401
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -20.17
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.245
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 25.000008
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.0000029504295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 3027273320398529226, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3987399707930093736, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_Name
-      value: Enemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3987399707930093736, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6518191092782949557, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_Speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7541325816604832081, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: playerTransform
-      value: 
-      objectReference: {fileID: 7222316875659332988}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
 --- !u!1 &231663488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,6 +1428,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lego_Red (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 8987552510169805728, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.208
@@ -1972,6 +1915,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6172444624789812229, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 9204751621948360777, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.102575
@@ -2099,6 +2046,10 @@ PrefabInstance:
     - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_Name
       value: Lego_Red (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8987552510169805728, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2290,6 +2241,10 @@ PrefabInstance:
     - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_Name
       value: Lego_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8987552510169805728, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2507,6 +2462,10 @@ PrefabInstance:
     - target: {fileID: 3194964488509487660, guid: 6597726479e70d94ba1f2363781f1550, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194964488509487660, guid: 6597726479e70d94ba1f2363781f1550, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 5176877494958465207, guid: 6597726479e70d94ba1f2363781f1550, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2778,6 +2737,10 @@ PrefabInstance:
     - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_Name
       value: Lego_Red (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8987552510169805728, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3846,6 +3809,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6172444624789812229, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 9204751621948360777, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.378
@@ -4187,7 +4154,7 @@ GameObject:
   - component: {fileID: 1677097335}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4716,6 +4683,10 @@ PrefabInstance:
     - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_Name
       value: Lego_Red (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132562250166889321, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 8987552510169805728, guid: c0af9f1a5bcd72942b40f3498f9ad4c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5571,6 +5542,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6172444624789812229, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 9204751621948360777, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.087734
@@ -5671,6 +5646,10 @@ PrefabInstance:
     - target: {fileID: 2356676924228178460, guid: 61af9c6820dd8e949aee4c846284cb00, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356676924228178460, guid: 61af9c6820dd8e949aee4c846284cb00, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5797,6 +5776,10 @@ PrefabInstance:
     - target: {fileID: 6172444624789812229, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172444624789812229, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 9204751621948360777, guid: 0f38d0dac352b2a408303c90ccaae32b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5944,6 +5927,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3194964488509487660, guid: 6597726479e70d94ba1f2363781f1550, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 5176877494958465207, guid: 6597726479e70d94ba1f2363781f1550, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.41
@@ -6083,6 +6070,10 @@ PrefabInstance:
     - target: {fileID: 2356676924228178460, guid: 61af9c6820dd8e949aee4c846284cb00, type: 3}
       propertyPath: m_Name
       value: Lego_Black (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356676924228178460, guid: 61af9c6820dd8e949aee4c846284cb00, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17574,14 +17565,6 @@ PrefabInstance:
     - target: {fileID: 3987399707930093736, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 3987399707930093736, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6518191092782949557, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
-      propertyPath: m_Speed
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7541325816604832081, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
       propertyPath: playerTransform
@@ -42158,7 +42141,6 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 6234703905439953993}
   - {fileID: 5250172169738093677}
-  - {fileID: 192443401}
   - {fileID: 7222316875659332988}
   - {fileID: 1914060800}
   - {fileID: 1963691816}

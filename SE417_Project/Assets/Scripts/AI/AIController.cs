@@ -10,9 +10,10 @@ namespace AI
     {
         [SerializeField] private bool isActive;
         [SerializeField] private Transform playerTransform;
-        
+        [SerializeField] private AudioClip audioClip;
         private NavMeshAgent _agent;
         private Animator _animator;
+        private AudioSource _audioSource;
         private bool _canMove;
         private bool _isPlayerAlive;
         private float _baseSpeed;
@@ -20,6 +21,7 @@ namespace AI
         {
             _agent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
+            _audioSource = GetComponent<AudioSource>();
         }
         
         private void Start()
@@ -31,6 +33,8 @@ namespace AI
 
         private void OnEnable()
         {
+            _audioSource.clip = audioClip;
+            _audioSource.Play();
             CoreGameSignals.Instance.OnPlayerHide += Stop;
             CoreGameSignals.Instance.OnPlayerWakeUp += Resume;
             CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
@@ -47,6 +51,7 @@ namespace AI
         private void OnPlayerDie()
         {
             _isPlayerAlive = false;
+            Stop();
         }
 
         private void OnCompleteObjective(int level)
@@ -67,6 +72,7 @@ namespace AI
         }
         private void Stop()
         {
+            _audioSource.Stop();
             _canMove = false;
             _agent.speed = 0;
             _animator.enabled = false;
