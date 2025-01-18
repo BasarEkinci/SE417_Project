@@ -30,7 +30,6 @@ namespace Player
         [SerializeField] private ParticleSystem hitEffect;
         
         [Header("SFX")]
-        [SerializeField] private AudioClip hitSound;
         [SerializeField] private AudioClip collectSound;
         
         [Header("Class References")]
@@ -78,7 +77,7 @@ namespace Player
             CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
         }
         
-        private void OnlevelComplete(int level)
+        private void OnlevelComplete()
         {
             Debug.Log("Level Complete");
             _isLevelComplete = true;
@@ -123,7 +122,6 @@ namespace Player
                     break;
                 case "Obstacle":
                     _isAttachedToEnemy = true;
-                    _audioSource.PlayOneShot(hitSound);
                     healthController.Damage(5);
                     if (!hitEffect.isPlaying)
                     {
@@ -280,7 +278,6 @@ namespace Player
                 }
                 if (_isAttachedToEnemy && !healthController.IsDead)
                 {
-                    _audioSource.PlayOneShot(hitSound);
                     healthController.Damage(damage);
                     if (!hitEffect.isPlaying)
                     {

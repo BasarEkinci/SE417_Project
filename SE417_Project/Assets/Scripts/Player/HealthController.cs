@@ -21,6 +21,7 @@ namespace Player
         [SerializeField] private int injuredHealth;
         [SerializeField] private List<Image> medkitIcons;
         [SerializeField] private AudioClip healSound;
+        [SerializeField] private AudioClip damageSound;
         [SerializeField] private GameObject healEffect;
         [SerializeField] private GameObject collectEffect;
         
@@ -56,6 +57,7 @@ namespace Player
             {
                 _currentHealth -= damageAmount;
                 _cameraShake.ShakeCamera();
+                _audioSource.PlayOneShot(damageSound);
             }
 
             if (_currentHealth <= 0)

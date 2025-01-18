@@ -26,12 +26,12 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void OnCompleteLevel(int level)
+    private void OnCompleteLevel()
     {
         
     }
 
-    private void OnCompleteObjective(int level)
+    private void OnCompleteObjective()
     {
         ChangeCameraAsync().Forget();
     }
