@@ -122,7 +122,7 @@ namespace Player
                     break;
                 case "Obstacle":
                     _isAttachedToEnemy = true;
-                    healthController.Damage(5);
+                    healthController.Damage(1);
                     if (!hitEffect.isPlaying)
                     {
                         hitEffect.Play();
@@ -131,7 +131,7 @@ namespace Player
                     break;
                 case "DangerArea": 
                     _isAttachedToEnemy = true;
-                    TakeDamageAsync(1,1).Forget();
+                    TakeDamageAsync(5,1).Forget();
                     break;
             }
         }

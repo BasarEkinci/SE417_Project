@@ -79,7 +79,6 @@ namespace Player
         }
         public void PlayJumpSound()
         {
-            Debug.Log("Jump");
             SetSound(defaultJumpSound,carpetJumpSound);
         }
 
@@ -90,7 +89,6 @@ namespace Player
             int colliderCount = Physics.OverlapSphereNonAlloc(layerDetector.position, 0.3f, results, groundLayer);
             if (colliderCount > 0)
             {
-                Debug.Log("Tag: " + results[0].tag);
                 switch (results[0].tag) 
                 { 
                     case "Ground": 
