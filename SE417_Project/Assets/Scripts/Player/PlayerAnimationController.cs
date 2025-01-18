@@ -28,7 +28,7 @@ namespace Player
         private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
         private void Awake()
         {
-            _audioSource = GetComponentInParent<AudioSource>();
+            _audioSource = GetComponent<AudioSource>();
             _playerController = GetComponentInParent<PlayerController>();
             _animator = GetComponent<Animator>();
             _healthController = GetComponentInParent<HealthController>();

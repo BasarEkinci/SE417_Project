@@ -22209,6 +22209,7 @@ GameObject:
   - component: {fileID: 3039839080759776423}
   - component: {fileID: 7547030806367570426}
   - component: {fileID: 7547030806367570427}
+  - component: {fileID: 7547030806367570428}
   m_Layer: 0
   m_Name: woody
   m_TagString: Untagged
@@ -22483,9 +22484,10 @@ GameObject:
   - component: {fileID: 1966460657801608452}
   - component: {fileID: 7272773430710702184}
   - component: {fileID: 7272773430710702185}
+  - component: {fileID: 7272773430710702186}
   m_Layer: 10
   m_Name: Bed_Poly
-  m_TagString: Untagged
+  m_TagString: Carpet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23713,8 +23715,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 51.580914, y: 4.565897, z: 30.974516}
-  m_Center: {x: -1.02404, y: -1.557104, z: -0.8302059}
+  m_Size: {x: 51.580914, y: 7.108936, z: 33.0063}
+  m_Center: {x: -1.02404, y: -0.28557894, z: 0.35319737}
+--- !u!65 &7272773430710702186
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6914974223890851542}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 49.532906, y: 20.385748, z: 3.6673374}
+  m_Center: {x: 0.0000019378658, y: 6.999914, z: 15.02852}
 --- !u!33 &7277330630900142845
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24487,11 +24510,108 @@ MonoBehaviour:
   layerDetector: {fileID: 5357071992363330668}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 2561
+    m_Bits: 3585
   defaultFootStepSound: {fileID: 8300000, guid: 8e001351cd7065543a068386cde4c960, type: 3}
   carpetFootStepSound: {fileID: 8300000, guid: 18e761ff5ef14fd4588d9283fcc9b829, type: 3}
   defaultJumpSound: {fileID: 8300000, guid: 623ad07c146cedd4db6b902fd1612618, type: 3}
   carpetJumpSound: {fileID: 8300000, guid: 6aeefb601c305f64487cebdfacae5b6c, type: 3}
+--- !u!82 &7547030806367570428
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6843840855181844099}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7547826663790371980
 GameObject:
   m_ObjectHideFlags: 0
@@ -25095,7 +25215,7 @@ MonoBehaviour:
   jumpForce: 6
   hitEffect: {fileID: 9179304451404654932}
   hitSound: {fileID: 8300000, guid: 5e5104458fa47f045ab5be62f622b03e, type: 3}
-  collectSound: {fileID: 8300000, guid: 60a086b5b06ead7459601cc2322979fc, type: 3}
+  collectSound: {fileID: 8300000, guid: 931a9cd678a5daf41a60107858aca407, type: 3}
   healthBar: {fileID: 17241775}
   cameraShake: {fileID: 8622271745687838365}
   healthController: {fileID: 374285813239646721}
@@ -25356,13 +25476,36 @@ GameObject:
   - component: {fileID: 2428144486120126066}
   - component: {fileID: 4461753684033620545}
   - component: {fileID: 3821899202268416364}
+  - component: {fileID: 7907469385006619898}
   m_Layer: 10
   m_Name: Pillow_Poly
-  m_TagString: Untagged
+  m_TagString: Carpet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &7907469385006619898
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7907469385006619897}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6041169443867056101, guid: 934b7bfc252c4cf45876736e14e0cdef, type: 3}
 --- !u!23 &7924974861838289137
 MeshRenderer:
   m_ObjectHideFlags: 0
