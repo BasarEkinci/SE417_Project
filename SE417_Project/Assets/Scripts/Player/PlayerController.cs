@@ -49,6 +49,7 @@ namespace Player
         private bool _isCrouching;
         private bool _canStandUp;
         private bool _isJumping;
+        private bool _isLevelComplete;
 
         #region Unity Methods (Awake, OnEnable, OnDisable, Start, Update)
         private void Awake()
@@ -63,7 +64,7 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Jump.performed += OnJumpPerformed;
             InputHandler.Instance.PlayerInputs.Player.Hide.performed += OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed += OnHealPerformed;
-            CoreGameSignals.Instance.OnCompleteLevel += _=> _isAttachedToEnemy = false;
+            CoreGameSignals.Instance.OnCompleteLevel += OnlevelComplete;
             CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
         }
 
@@ -73,8 +74,14 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Jump.performed -= OnJumpPerformed;
             InputHandler.Instance.PlayerInputs.Player.Hide.performed -= OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed -= OnHealPerformed;
-            CoreGameSignals.Instance.OnCompleteLevel -= _=> _isAttachedToEnemy = false;
+            CoreGameSignals.Instance.OnCompleteLevel -= OnlevelComplete;
             CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
+        }
+        
+        private void OnlevelComplete(int level)
+        {
+            Debug.Log("Level Complete");
+            _isLevelComplete = true;
         }
         private void Start()
         {
@@ -267,6 +274,10 @@ namespace Player
         {
             while (true)
             {
+                if (_isLevelComplete)
+                {
+                    return;
+                }
                 if (_isAttachedToEnemy && !healthController.IsDead)
                 {
                     _audioSource.PlayOneShot(hitSound);

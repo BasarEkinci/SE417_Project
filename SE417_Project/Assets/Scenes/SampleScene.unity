@@ -9148,7 +9148,7 @@ GameObject:
   - component: {fileID: 6282424321938344501}
   m_Layer: 10
   m_Name: Bed_Covers_Poly
-  m_TagString: Untagged
+  m_TagString: Carpet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24487,7 +24487,7 @@ MonoBehaviour:
   layerDetector: {fileID: 5357071992363330668}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 2049
+    m_Bits: 2561
   defaultFootStepSound: {fileID: 8300000, guid: 8e001351cd7065543a068386cde4c960, type: 3}
   carpetFootStepSound: {fileID: 8300000, guid: 18e761ff5ef14fd4588d9283fcc9b829, type: 3}
   defaultJumpSound: {fileID: 8300000, guid: 623ad07c146cedd4db6b902fd1612618, type: 3}
@@ -25649,7 +25649,7 @@ GameObject:
   - component: {fileID: 8031238492602406005}
   m_Layer: 11
   m_Name: Rug_Poly
-  m_TagString: Untagged
+  m_TagString: Carpet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

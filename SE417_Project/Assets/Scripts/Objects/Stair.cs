@@ -51,6 +51,7 @@ namespace Objects
             {
                 //1 mean level 1 is completed
                 CoreGameSignals.Instance.OnCompleteObjective?.Invoke(1);
+                CoreGameSignals.Instance.OnCompleteLevel?.Invoke(1);
             }   
         }
         

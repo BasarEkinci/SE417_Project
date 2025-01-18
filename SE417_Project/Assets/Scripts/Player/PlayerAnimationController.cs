@@ -19,7 +19,7 @@ namespace Player
         private HealthController _healthController;
         private AudioSource _audioSource;
         private Animator _animator;
-        private RaycastHit hit;
+        
 
         private static readonly int IsInjured = Animator.StringToHash("IsInjured");
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
@@ -79,6 +79,7 @@ namespace Player
         }
         public void PlayJumpSound()
         {
+            Debug.Log("Jump");
             SetSound(defaultJumpSound,carpetJumpSound);
         }
 
@@ -86,12 +87,13 @@ namespace Player
         {
             _audioSource.pitch = Random.Range(0.8f, 1.2f);
             Collider[] results = new Collider[10];
-            int colliderCount = Physics.OverlapSphereNonAlloc(layerDetector.position, 0.1f, results, groundLayer);
+            int colliderCount = Physics.OverlapSphereNonAlloc(layerDetector.position, 0.3f, results, groundLayer);
             if (colliderCount > 0)
             {
+                Debug.Log("Tag: " + results[0].tag);
                 switch (results[0].tag) 
                 { 
-                    case "Default": 
+                    case "Ground": 
                         _audioSource.PlayOneShot(soundType1); 
                         break;
                     case "Carpet": 
@@ -101,6 +103,10 @@ namespace Player
                         _audioSource.PlayOneShot(soundType1); 
                         break;
                 }
+            }
+            else
+            {
+                Debug.Log("No ground detected");
             }
         }
     } 
