@@ -8,14 +8,13 @@ using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities;
-using Random = UnityEngine.Random;
 
 namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
         public bool IsMoving => _moveVector.magnitude > 0;
-        public bool IsJumping => !layerDetectorDown.IsLayerDetected();
+        public bool IsGrounded => !layerDetectorDown.IsLayerDetected(); 
         public bool IsCrouching => _isCrouching;
 
         [Header("Colliders")]
@@ -33,7 +32,6 @@ namespace Player
         [Header("SFX")]
         [SerializeField] private AudioClip hitSound;
         [SerializeField] private AudioClip collectSound;
-        [SerializeField] private List<AudioClip> jumpSounds;
         
         [Header("Class References")]
         [SerializeField] private HealthBar healthBar;
@@ -50,6 +48,7 @@ namespace Player
         private bool _canMove;
         private bool _isCrouching;
         private bool _canStandUp;
+        private bool _isJumping;
 
         #region Unity Methods (Awake, OnEnable, OnDisable, Start, Update)
         private void Awake()
@@ -208,7 +207,6 @@ namespace Player
                 {
                     return;
                 }
-                _audioSource.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Count)]);
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }

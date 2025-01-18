@@ -7,7 +7,9 @@ namespace Utilities
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private float detectionRadius;
 
-    
+        private LayerMask _currentLayer;
+        
+        
         //To detect all selected layers
         internal bool IsLayerDetected()
         {

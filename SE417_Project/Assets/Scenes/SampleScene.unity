@@ -3740,9 +3740,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1778268078}
-  - {fileID: 1874524109}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1212157992
@@ -5496,7 +5494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1196096377}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1778268079
 MonoBehaviour:
@@ -5834,7 +5832,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1196096377}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1910228887 stripped
 GameObject:
@@ -11391,7 +11389,6 @@ GameObject:
   - component: {fileID: 7222316875659332988}
   - component: {fileID: 7765595223164450417}
   - component: {fileID: 4059803223767930494}
-  - component: {fileID: 6790877655674019671}
   - component: {fileID: 8622271745687838365}
   - component: {fileID: 374285813239646721}
   - component: {fileID: 8622271745687838367}
@@ -22108,18 +22105,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 186569032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6790877655674019671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004245846599146093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aea2784450f43f84bb2cfd04f0c05b58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6818355114184366999
 Transform:
   m_ObjectHideFlags: 0
@@ -22223,6 +22208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3039839080759776423}
   - component: {fileID: 7547030806367570426}
+  - component: {fileID: 7547030806367570427}
   m_Layer: 0
   m_Name: woody
   m_TagString: Untagged
@@ -24486,6 +24472,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7547030806367570427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6843840855181844099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea2784450f43f84bb2cfd04f0c05b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerDetector: {fileID: 5357071992363330668}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 2049
+  defaultFootStepSound: {fileID: 8300000, guid: 8e001351cd7065543a068386cde4c960, type: 3}
+  carpetFootStepSound: {fileID: 8300000, guid: 18e761ff5ef14fd4588d9283fcc9b829, type: 3}
+  defaultJumpSound: {fileID: 8300000, guid: 623ad07c146cedd4db6b902fd1612618, type: 3}
+  carpetJumpSound: {fileID: 8300000, guid: 6aeefb601c305f64487cebdfacae5b6c, type: 3}
 --- !u!1 &7547826663790371980
 GameObject:
   m_ObjectHideFlags: 0
@@ -25090,10 +25096,6 @@ MonoBehaviour:
   hitEffect: {fileID: 9179304451404654932}
   hitSound: {fileID: 8300000, guid: 5e5104458fa47f045ab5be62f622b03e, type: 3}
   collectSound: {fileID: 8300000, guid: 60a086b5b06ead7459601cc2322979fc, type: 3}
-  jumpSounds:
-  - {fileID: 8300000, guid: 4dd3709bc57e142658a6b53f15346ce6, type: 3}
-  - {fileID: 8300000, guid: 205be67afd3eb43a18e9e78c60a271f1, type: 3}
-  - {fileID: 8300000, guid: 4a05b5376c9ef43f4b35987fa28a8038, type: 3}
   healthBar: {fileID: 17241775}
   cameraShake: {fileID: 8622271745687838365}
   healthController: {fileID: 374285813239646721}
@@ -25266,7 +25268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
-    m_Bits: 567
+    m_Bits: 3639
   detectionRadius: 0.2
 --- !u!33 &7865074833694295417
 MeshFilter:
@@ -25552,7 +25554,7 @@ GameObject:
   - component: {fileID: 7991211064147794028}
   m_Layer: 0
   m_Name: Floor_Poly
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25645,7 +25647,7 @@ GameObject:
   - component: {fileID: 4214619842404662395}
   - component: {fileID: 2299430596765530110}
   - component: {fileID: 8031238492602406005}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Rug_Poly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43336,6 +43338,9 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1778268078}
+  - {fileID: 1874524109}
+  - {fileID: 1196096377}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
@@ -43348,6 +43353,5 @@ SceneRoots:
   - {fileID: 3999917772718469999}
   - {fileID: 1773247905}
   - {fileID: 984944854}
-  - {fileID: 1196096377}
   - {fileID: 616093250}
   - {fileID: 534380622}

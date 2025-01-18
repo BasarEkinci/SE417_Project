@@ -18,9 +18,9 @@ namespace Camera
 
         private void OnEnable()
         {
+            InputHandler.Instance.PlayerInputs.Player.Crouch.performed += OnCrouchPerformed;
             _isPlayerCrouching = false;
             followCam.FollowOffset.y = DefaultPos;
-            InputHandler.Instance.PlayerInputs.Player.Crouch.performed += OnCrouchPerformed;
         }
 
         private void Update()
@@ -33,6 +33,11 @@ namespace Camera
             {
                 followCam.FollowOffset.y = Mathf.Lerp(followCam.FollowOffset.y,DefaultPos,Time.deltaTime * 2);
             }
+        }
+
+        private void OnDisable()
+        {
+            InputHandler.Instance.PlayerInputs.Player.Crouch.performed -= OnCrouchPerformed;
         }
 
         private void OnCrouchPerformed(InputAction.CallbackContext obj)
