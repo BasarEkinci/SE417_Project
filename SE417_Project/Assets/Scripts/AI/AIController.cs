@@ -72,7 +72,7 @@ namespace AI
         {
             CoreGameSignals.Instance.OnPlayerHide += DeactivateAI;
             CoreGameSignals.Instance.OnPlayerWakeUp += ActivateAI;
-            CoreGameSignals.Instance.OnPlayerDie += ActivateAI;
+            CoreGameSignals.Instance.OnPlayerDie += DeactivateAI;
             CoreGameSignals.Instance.OnCompleteLevel += DeactivateAI;
         }
         
@@ -80,7 +80,7 @@ namespace AI
         {
             CoreGameSignals.Instance.OnPlayerHide -= DeactivateAI;
             CoreGameSignals.Instance.OnPlayerWakeUp -= ActivateAI;
-            CoreGameSignals.Instance.OnPlayerDie -= ActivateAI;
+            CoreGameSignals.Instance.OnPlayerDie -= DeactivateAI;
             CoreGameSignals.Instance.OnCompleteLevel -= DeactivateAI;
         }
     }
