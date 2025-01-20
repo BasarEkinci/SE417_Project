@@ -961,12 +961,12 @@ GameObject:
   - component: {fileID: 9106721702884153787}
   - component: {fileID: 3723944867960855695}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: ZurgBot
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3027273320398529226
 Transform:
   m_ObjectHideFlags: 0
@@ -1157,7 +1157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7218e969002af4db921aeeecbd1d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isReptile: 0
   audioClip: {fileID: 8300000, guid: ab62cea02536cf2489c1c05190df39a0, type: 3}
+  playerPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &4256460410053816555
 GameObject:
   m_ObjectHideFlags: 0

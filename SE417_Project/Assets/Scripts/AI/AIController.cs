@@ -10,8 +10,10 @@ namespace AI
     [RequireComponent(typeof(NavMeshAgent))]
     public class AIController : MonoBehaviour
     {
+        [SerializeField] private bool isReptile;
         [SerializeField] private AudioClip audioClip;
-
+        [SerializeField] private Vector3 playerPosition;
+        
         private NavMeshAgent _agent;
         private AudioSource _audioSource;
         private Animator _animator;
@@ -32,10 +34,13 @@ namespace AI
 
         private void OnEnable()
         {
+            SubscribeEvents();
             _baseSpeed = _agent.speed;
             _audioSource.clip = audioClip;
-            ActivateAI();
-            SubscribeEvents();
+            if (isReptile)
+                DeactivateAI();
+            else
+                ActivateAI();
         }
 
         private void OnDisable()
@@ -67,13 +72,13 @@ namespace AI
             _isActive = false;
             _agent.speed = 0;
         }
-        
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.OnPlayerHide += DeactivateAI;
             CoreGameSignals.Instance.OnPlayerWakeUp += ActivateAI;
             CoreGameSignals.Instance.OnPlayerDie += DeactivateAI;
             CoreGameSignals.Instance.OnCompleteLevel += DeactivateAI;
+            CoreGameSignals.Instance.OnPlayerEnterBed += OnPlayerEnterBed;
         }
         
         private void UnsubscribeEvents()
@@ -82,6 +87,19 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerWakeUp -= ActivateAI;
             CoreGameSignals.Instance.OnPlayerDie -= DeactivateAI;
             CoreGameSignals.Instance.OnCompleteLevel -= DeactivateAI;
+            CoreGameSignals.Instance.OnPlayerEnterBed -= OnPlayerEnterBed;
+        }
+
+        private void OnPlayerEnterBed(bool condition)
+        {
+            if (condition == isReptile)
+            {
+                ActivateAI();
+            }
+            else
+            {
+                DeactivateAI();
+            }
         }
     }
 }

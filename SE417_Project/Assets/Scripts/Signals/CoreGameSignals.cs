@@ -11,6 +11,7 @@ namespace Signals
         public UnityAction OnCompleteObjective = delegate { };
         public UnityAction OnCollectObject = delegate { };
         public UnityAction OnCompleteLevel = delegate { };
+        public UnityAction<bool> OnPlayerEnterBed = delegate { };
         public UnityAction OnGameStart = delegate { };
     }
 }

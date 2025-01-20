@@ -968,7 +968,8 @@ GameObject:
   - component: {fileID: 932329039869714200}
   - component: {fileID: 330664718340052815}
   - component: {fileID: 1553764640118184759}
-  m_Layer: 0
+  - component: {fileID: 1333971348722451097}
+  m_Layer: 8
   m_Name: Zurg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,8 +1013,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 1.01
+  MinDistance: 1.01
+  MaxDistance: 1.010001
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1122,7 +1123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7218e969002af4db921aeeecbd1d50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isReptile: 0
   audioClip: {fileID: 8300000, guid: ab62cea02536cf2489c1c05190df39a0, type: 3}
+  playerPosition: {x: 0, y: 0, z: 0}
 --- !u!95 &1553764640118184759
 Animator:
   serializedVersion: 7
@@ -1145,6 +1148,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &1333971348722451097
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475722975932564752}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8005743, y: 0.8009283, z: 0.8030672}
+  m_Center: {x: 0.00000015894572, y: 0.39670143, z: 0.0012462934}
 --- !u!1 &2671679432165563645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,7 +2255,7 @@ Transform:
   m_GameObject: {fileID: 4899311603204870474}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.062, y: 0, z: -0.093}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
