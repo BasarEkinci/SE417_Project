@@ -10,6 +10,7 @@ namespace AI
     [RequireComponent(typeof(NavMeshAgent))]
     public class AIController : MonoBehaviour
     {
+        [SerializeField] private Transform initialPosition;
         [SerializeField] private bool isReptile;
         [SerializeField] private AudioClip audioClip;
         [SerializeField] private Vector3 playerPosition;
@@ -37,10 +38,6 @@ namespace AI
             SubscribeEvents();
             _baseSpeed = _agent.speed;
             _audioSource.clip = audioClip;
-            if (isReptile)
-                DeactivateAI();
-            else
-                ActivateAI();
         }
 
         private void OnDisable()
@@ -54,6 +51,14 @@ namespace AI
             {
                 _agent.SetDestination(_playerTransform.position);
             }
+        }
+
+        private void OnGameStart()
+        {
+            if (isReptile)
+                DeactivateAI();
+            else
+                ActivateAI();
         }
         
         private async void ActivateAI()
@@ -79,6 +84,8 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerDie += DeactivateAI;
             CoreGameSignals.Instance.OnCompleteLevel += DeactivateAI;
             CoreGameSignals.Instance.OnPlayerEnterBed += OnPlayerEnterBed;
+            CoreGameSignals.Instance.OnGameRestart += OnGameRestart;
+            CoreGameSignals.Instance.OnGameStart += OnGameStart;
         }
         
         private void UnsubscribeEvents()
@@ -88,6 +95,14 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerDie -= DeactivateAI;
             CoreGameSignals.Instance.OnCompleteLevel -= DeactivateAI;
             CoreGameSignals.Instance.OnPlayerEnterBed -= OnPlayerEnterBed;
+            CoreGameSignals.Instance.OnGameRestart -= OnGameRestart;
+            CoreGameSignals.Instance.OnGameStart -= OnGameStart;
+        }
+
+        private void OnGameRestart()
+        {
+            transform.position = initialPosition.position;
+            ActivateAI();
         }
 
         private void OnPlayerEnterBed(bool condition)

@@ -4,10 +4,12 @@ using DG.Tweening;
 using Objects;
 using Signals;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject restartButton;
     [SerializeField] private Image fadeImage;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private GameObject stairsCamera;
@@ -17,23 +19,35 @@ public class GameManager : MonoBehaviour
     {
         CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
         CoreGameSignals.Instance.OnCompleteLevel += OnCompleteLevel;
+        CoreGameSignals.Instance.OnPlayerDie += () => restartButton.SetActive(true);
     }
     
     private void OnDisable()
     {
         CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;
         CoreGameSignals.Instance.OnCompleteLevel -= OnCompleteLevel;
-        
+        CoreGameSignals.Instance.OnPlayerDie -= () => restartButton.SetActive(true);
     }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void StartGame()
+    {
+        CoreGameSignals.Instance.OnGameStart?.Invoke();
+    }
+    
     private void OnCompleteLevel()
     {
-        
+        restartButton.SetActive(true);
     }
 
     private void OnCompleteObjective()
     {
         ChangeCameraAsync().Forget();
+        restartButton.SetActive(true);
     }
     
     private async UniTask ChangeCameraAsync()

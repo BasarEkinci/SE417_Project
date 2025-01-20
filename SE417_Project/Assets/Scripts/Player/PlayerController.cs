@@ -24,6 +24,7 @@ namespace Player
         [SerializeField] private float injuredMoveSpeed;
         [SerializeField] private float crouchingSpeed;
         [SerializeField] private float jumpForce;
+        [SerializeField] private Transform initialPosition;
 
         [Header("VFX")]
         [SerializeField] private ParticleSystem hitEffect;
@@ -59,18 +60,19 @@ namespace Player
         private void Start()
         {
             _baseSpeed = moveSpeed;
-            _canMove = true;
             baseCollider.enabled = true;
             crouchCollider.enabled = false;
         }
         
         private void OnEnable()
         {
+            _canMove = false;
             InputHandler.Instance.PlayerInputs.Player.Crouch.performed += OnCrouchPerformed;
             InputHandler.Instance.PlayerInputs.Player.Jump.performed += OnJumpPerformed;
             InputHandler.Instance.PlayerInputs.Player.Hide.performed += OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed += OnHealPerformed;
             CoreGameSignals.Instance.OnCompleteLevel += OnlevelComplete;
+            CoreGameSignals.Instance.OnGameStart += () => _canMove = true;
             CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
         }
 
@@ -81,9 +83,10 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Hide.performed -= OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed -= OnHealPerformed;
             CoreGameSignals.Instance.OnCompleteLevel -= OnlevelComplete;
-            CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
+            CoreGameSignals.Instance.OnGameStart -= () => _canMove = true;
+            CoreGameSignals.Instance.OnPlayerDie -= OnPlayerDie;
         }
-        
+
         private void OnlevelComplete()
         {
             _isLevelComplete = true;
@@ -276,6 +279,7 @@ namespace Player
             {
                 if (_isLevelComplete)
                 {
+                    _isAttachedToEnemy = false;
                     return;
                 }
                 if (_isAttachedToEnemy && !healthController.IsDead)
