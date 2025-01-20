@@ -1,7 +1,5 @@
-using System;
 using Signals;
 using UnityEngine;
-using Utilities;
 using Random = UnityEngine.Random;
 
 namespace Player
@@ -101,10 +99,6 @@ namespace Player
                         _audioSource.PlayOneShot(soundType1); 
                         break;
                 }
-            }
-            else
-            {
-                Debug.Log("No ground detected");
             }
         }
     } 

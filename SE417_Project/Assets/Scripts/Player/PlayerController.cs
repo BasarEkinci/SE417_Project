@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Camera;
 using Cysharp.Threading.Tasks;
 using Inputs;
@@ -57,6 +56,14 @@ namespace Player
             _audioSource = GetComponent<AudioSource>();
         }
         
+        private void Start()
+        {
+            _baseSpeed = moveSpeed;
+            _canMove = true;
+            baseCollider.enabled = true;
+            crouchCollider.enabled = false;
+        }
+        
         private void OnEnable()
         {
             InputHandler.Instance.PlayerInputs.Player.Crouch.performed += OnCrouchPerformed;
@@ -80,13 +87,6 @@ namespace Player
         private void OnlevelComplete()
         {
             _isLevelComplete = true;
-        }
-        private void Start()
-        {
-            _baseSpeed = moveSpeed;
-            _canMove = true;
-            baseCollider.enabled = true;
-            crouchCollider.enabled = false;
         }
         
         private void Update()
@@ -131,7 +131,7 @@ namespace Player
                     }
                     cameraShake.ShakeCamera();
                     break;
-                case "DangerArea": 
+                case "DangerArea":
                     _isAttachedToEnemy = true;
                     TakeDamageAsync(1,1).Forget();
                     break;

@@ -48,32 +48,32 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: teeth_no_glow_1mat
-    second: {fileID: 2100000, guid: c09c7c7b279f3aa4090111ba2ac7e599, type: 2}
+    second: {fileID: 2100000, guid: 40af73023fd96c74cb6d55b015121ae1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: teeth_no_glow_2mat
-    second: {fileID: 2100000, guid: 51a25b2a59e86f94d8d50b4ac55730d0, type: 2}
+    second: {fileID: 2100000, guid: 40af73023fd96c74cb6d55b015121ae1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: teeth_no_glow_3mat
-    second: {fileID: 2100000, guid: 0960e68bd98ef0d4eb8f3628afbd23a3, type: 2}
+    second: {fileID: 2100000, guid: 40af73023fd96c74cb6d55b015121ae1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: teeth_no_glow_4mat
-    second: {fileID: 2100000, guid: 3779ac5e4e14211438b52661eaac606a, type: 2}
+    second: {fileID: 2100000, guid: 40af73023fd96c74cb6d55b015121ae1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: teeth_no_glow_5mat
-    second: {fileID: 2100000, guid: e5ccb74b18dcbcd46b44d92ca9e9d2d9, type: 2}
+    second: {fileID: 2100000, guid: 40af73023fd96c74cb6d55b015121ae1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: teeth_no_glowmat
-    second: {fileID: 2100000, guid: c9a80f1d819c22b4f8e7247a832c1b8e, type: 2}
+    second: {fileID: 2100000, guid: 40af73023fd96c74cb6d55b015121ae1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

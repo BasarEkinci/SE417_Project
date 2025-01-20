@@ -10,21 +10,24 @@ namespace AI
     [RequireComponent(typeof(NavMeshAgent))]
     public class AIController : MonoBehaviour
     {
-        [SerializeField] private Transform playerTransform;
         [SerializeField] private AudioClip audioClip;
-        
+
         private NavMeshAgent _agent;
         private AudioSource _audioSource;
+        private Animator _animator;
+        private Transform _playerTransform;
         
         private bool _canMove;
         private bool _isActive;
         private bool _isPlayerAlive;
         private float _baseSpeed;
 
-        protected virtual void Awake()
+        private void Awake()
         {
+            _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             _agent = GetComponent<NavMeshAgent>();
             _audioSource = GetComponent<AudioSource>();
+            _animator = GetComponent<Animator>();
         }
 
         private void OnEnable()
@@ -44,21 +47,23 @@ namespace AI
         {
             if (_isActive)
             {
-                _agent.SetDestination(playerTransform.position);
+                _agent.SetDestination(_playerTransform.position);
             }
         }
         
-        protected virtual async void ActivateAI()
+        private async void ActivateAI()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _audioSource.Play();
+            _animator.enabled = true;
             _isActive = true;
             _agent.speed = _baseSpeed;
         }
         
-        protected virtual void DeactivateAI()
+        private void DeactivateAI()
         {
             _audioSource.Stop();
+            _animator.enabled = false;
             _isActive = false;
             _agent.speed = 0;
         }

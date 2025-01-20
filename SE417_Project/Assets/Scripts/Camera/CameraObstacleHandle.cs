@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -15,31 +16,55 @@ namespace Camera
         private List<GameObject> _hitObjects = new List<GameObject>();
         private void Update()
         {
+            MakeTransparent();
+        }
+        
+        private void MakeTransparent()
+        {
             _direction = player.position - transform.position;
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, _direction, out hit, _direction.magnitude, targetLayer))
+            float maxDistance = _direction.magnitude;
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, _direction, maxDistance, targetLayer);
+            foreach (var hit in hits)
             {
                 if (hit.collider != null)
                 {
-                    _hitObject = hit.collider.gameObject;
-                    if (!_hitObjects.Contains(_hitObject))
+                    GameObject hitObject = hit.collider.gameObject;
+                    
+                    if (!_hitObjects.Contains(hitObject))
                     {
-                        _hitObjects.Add(_hitObject);
+                        _hitObjects.Add(hitObject);
                     }
-                    _material = _hitObject.GetComponent<Collider>().GetComponent<MeshRenderer>().material;
-                    _material.DOColor(new Color(_material.color.r, _material.color.g, _material.color.b, 0.5f), 0.3f);
+                    MeshRenderer renderer = hit.collider.GetComponent<MeshRenderer>();
+                    if (renderer != null)
+                    {
+                        Material material = renderer.material;
+                        Color currentColor = material.color;
+                        if (currentColor.a > 0.5f) 
+                        {
+                            material.DOColor(new Color(currentColor.r, currentColor.g, currentColor.b, 0.5f), 0.3f);
+                        }
+                    }
                 }
             }
-            else
+            for (int i = _hitObjects.Count - 1; i >= 0; i--)
             {
-                foreach (var hitObject in _hitObjects)
+                if (!Array.Exists(hits, h => h.collider.gameObject == _hitObjects[i]))
                 {
-                    _material = hitObject.GetComponent<Collider>().GetComponent<MeshRenderer>().material;
-                    _material.DOColor(new Color(_material.color.r, _material.color.g, _material.color.b, 1f), 0.3f);
+                    MeshRenderer renderer = _hitObjects[i].GetComponent<MeshRenderer>();
+                    if (renderer != null)
+                    {
+                        Material material = renderer.material;
+                        material.DOColor(new Color(material.color.r, material.color.g, material.color.b, 1f), 0.3f);
+                    }
+                    _hitObjects.RemoveAt(i);
                 }
-                _hitObjects.Clear();
             }
         }
-
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(player.position, transform.position - player.position);
+        }
     }
 }
