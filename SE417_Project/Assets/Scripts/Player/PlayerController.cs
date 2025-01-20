@@ -79,7 +79,6 @@ namespace Player
         
         private void OnlevelComplete()
         {
-            Debug.Log("Level Complete");
             _isLevelComplete = true;
         }
         private void Start()
@@ -113,12 +112,15 @@ namespace Player
         #region Unity Methods (Physics)
         private void OnCollisionEnter(Collision other)
         {
-
+            if (!_canMove)
+            {
+                return;
+            }
             switch (other.gameObject.tag)
             {
                 case "Enemy":
                     _isAttachedToEnemy = true;
-                    TakeDamageAsync(20,1).Forget();
+                    TakeDamageAsync(10,1).Forget();
                     break;
                 case "Obstacle":
                     _isAttachedToEnemy = true;
@@ -131,7 +133,7 @@ namespace Player
                     break;
                 case "DangerArea": 
                     _isAttachedToEnemy = true;
-                    TakeDamageAsync(5,1).Forget();
+                    TakeDamageAsync(1,1).Forget();
                     break;
             }
         }

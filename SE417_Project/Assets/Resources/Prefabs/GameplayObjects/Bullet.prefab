@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 8952874523438749835, guid: 925d327d02eae0b4991632d19c47ba2e, type: 3}
+  damage: 5
 --- !u!54 &7256633124971462889
 Rigidbody:
   m_ObjectHideFlags: 0

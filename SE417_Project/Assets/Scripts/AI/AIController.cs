@@ -1,3 +1,5 @@
+using System;
+using Cysharp.Threading.Tasks;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,6 +19,7 @@ namespace AI
         private bool _canMove;
         private bool _isActive;
         private bool _isPlayerAlive;
+        private float _baseSpeed;
 
         protected virtual void Awake()
         {
@@ -26,6 +29,7 @@ namespace AI
 
         private void OnEnable()
         {
+            _baseSpeed = _agent.speed;
             _audioSource.clip = audioClip;
             ActivateAI();
             SubscribeEvents();
@@ -44,16 +48,19 @@ namespace AI
             }
         }
         
-        protected virtual void ActivateAI()
+        protected virtual async void ActivateAI()
         {
+            await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _audioSource.Play();
             _isActive = true;
+            _agent.speed = _baseSpeed;
         }
         
         protected virtual void DeactivateAI()
         {
             _audioSource.Stop();
             _isActive = false;
+            _agent.speed = 0;
         }
         
         private void SubscribeEvents()
