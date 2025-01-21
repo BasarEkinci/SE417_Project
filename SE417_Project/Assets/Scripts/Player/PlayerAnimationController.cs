@@ -1,3 +1,5 @@
+using System;
+using Cysharp.Threading.Tasks;
 using Signals;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -36,14 +38,25 @@ namespace Player
         {
             CoreGameSignals.Instance.OnPlayerHide += Fall;
             CoreGameSignals.Instance.OnPlayerWakeUp += StandUp;
+            CoreGameSignals.Instance.OnCompleteLevel += OnCompleteLevel;
         }
 
         private void OnDisable()
         {
             CoreGameSignals.Instance.OnPlayerHide -= Fall;
             CoreGameSignals.Instance.OnPlayerWakeUp -= StandUp;
+            CoreGameSignals.Instance.OnCompleteLevel -= OnCompleteLevel;
         }
 
+        private void OnCompleteLevel()
+        {
+            PlayVictoryAnimationAsync().Forget();
+        }
+        private async UniTaskVoid PlayVictoryAnimationAsync()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(2f));
+            _animator.Play("Victory");
+        }
         private void Update()
         {
             SetAnimationParameters();

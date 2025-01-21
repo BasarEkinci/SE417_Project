@@ -49,9 +49,7 @@ namespace Objects
             collectedPieceCountText.text = $"{_currentPieceCount}/{pieces.Count}";
             if (_currentPieceCount == pieces.Count)
             {
-                //1 mean level 1 is completed
                 CoreGameSignals.Instance.OnCompleteObjective?.Invoke();
-                CoreGameSignals.Instance.OnCompleteLevel?.Invoke();
             }   
         }
         

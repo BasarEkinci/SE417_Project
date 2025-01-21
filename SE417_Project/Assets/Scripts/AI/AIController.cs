@@ -13,7 +13,7 @@ namespace AI
         [SerializeField] private Transform initialPosition;
         [SerializeField] private bool isReptile;
         [SerializeField] private AudioClip audioClip;
-        [SerializeField] private Vector3 playerPosition;
+        [SerializeField] private float activateTime = 2f;
         
         private NavMeshAgent _agent;
         private AudioSource _audioSource;
@@ -63,7 +63,7 @@ namespace AI
         
         private async void ActivateAI()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(2f));
+            await UniTask.Delay(TimeSpan.FromSeconds(activateTime));
             _audioSource.Play();
             _animator.enabled = true;
             _isActive = true;
@@ -83,6 +83,7 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerWakeUp += ActivateAI;
             CoreGameSignals.Instance.OnPlayerDie += DeactivateAI;
             CoreGameSignals.Instance.OnCompleteLevel += DeactivateAI;
+            CoreGameSignals.Instance.OnCompleteObjective += DeactivateAI;
             CoreGameSignals.Instance.OnPlayerEnterBed += OnPlayerEnterBed;
             CoreGameSignals.Instance.OnGameRestart += OnGameRestart;
             CoreGameSignals.Instance.OnGameStart += OnGameStart;
@@ -97,6 +98,7 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerEnterBed -= OnPlayerEnterBed;
             CoreGameSignals.Instance.OnGameRestart -= OnGameRestart;
             CoreGameSignals.Instance.OnGameStart -= OnGameStart;
+            CoreGameSignals.Instance.OnCompleteObjective -= DeactivateAI;
         }
 
         private void OnGameRestart()

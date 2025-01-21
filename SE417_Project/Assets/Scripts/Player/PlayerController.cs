@@ -71,9 +71,10 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Jump.performed += OnJumpPerformed;
             InputHandler.Instance.PlayerInputs.Player.Hide.performed += OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed += OnHealPerformed;
-            CoreGameSignals.Instance.OnCompleteLevel += OnlevelComplete;
+            CoreGameSignals.Instance.OnCompleteLevel += ()=> _canMove = false;
             CoreGameSignals.Instance.OnGameStart += () => _canMove = true;
             CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
+            CoreGameSignals.Instance.OnCompleteObjective += ()=> _isLevelComplete = true;
         }
 
         private void OnDisable()
@@ -82,16 +83,11 @@ namespace Player
             InputHandler.Instance.PlayerInputs.Player.Jump.performed -= OnJumpPerformed;
             InputHandler.Instance.PlayerInputs.Player.Hide.performed -= OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed -= OnHealPerformed;
-            CoreGameSignals.Instance.OnCompleteLevel -= OnlevelComplete;
+            CoreGameSignals.Instance.OnCompleteLevel -= ()=> _canMove = false;
             CoreGameSignals.Instance.OnGameStart -= () => _canMove = true;
             CoreGameSignals.Instance.OnPlayerDie -= OnPlayerDie;
+            CoreGameSignals.Instance.OnCompleteObjective -= ()=> _isLevelComplete = true;
         }
-
-        private void OnlevelComplete()
-        {
-            _isLevelComplete = true;
-        }
-        
         private void Update()
         {
             if (healthController.IsInjured)

@@ -1160,7 +1160,7 @@ MonoBehaviour:
   initialPosition: {fileID: 3027273320398529226}
   isReptile: 0
   audioClip: {fileID: 8300000, guid: ab62cea02536cf2489c1c05190df39a0, type: 3}
-  playerPosition: {x: 0, y: 0, z: 0}
+  activateTime: 2
 --- !u!1 &4256460410053816555
 GameObject:
   m_ObjectHideFlags: 0

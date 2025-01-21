@@ -1126,7 +1126,7 @@ MonoBehaviour:
   initialPosition: {fileID: 5012527467503356590}
   isReptile: 0
   audioClip: {fileID: 8300000, guid: ab62cea02536cf2489c1c05190df39a0, type: 3}
-  playerPosition: {x: 0, y: 0, z: 0}
+  activateTime: 2
 --- !u!95 &1553764640118184759
 Animator:
   serializedVersion: 7
