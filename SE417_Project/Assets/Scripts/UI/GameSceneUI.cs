@@ -1,4 +1,5 @@
-using System;
+using Signals;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,8 +12,19 @@ namespace UI
 
         private void OnEnable()
         {
-            restartButton.SetActive(true);
             restartButton.SetActive(false);
+            CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
+        }
+        
+        private void OnDisable()
+        {
+            CoreGameSignals.Instance.OnPlayerDie -= OnPlayerDie;
+        }
+
+        private void OnPlayerDie()
+        {
+            restartButton.SetActive(true);
+            mainMenuButton.SetActive(true);
         }
 
         public void ReturnToMainMenu()
