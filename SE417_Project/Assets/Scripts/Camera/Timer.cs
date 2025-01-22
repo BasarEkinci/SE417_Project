@@ -7,16 +7,17 @@ namespace Camera
     public class Timer : MonoBehaviour
     {
         [SerializeField] private TMP_Text timerText;
-        [SerializeField] private float duration;
-
+        private float _duration;
         private float _timeRemaining;
         private bool _isCountingDown = false;
-
+        
         private void OnEnable()
         {
+            _duration = PlayerPrefs.GetFloat("GameTime");
             CoreGameSignals.Instance.OnGameStart += StartTimer;
             CoreGameSignals.Instance.OnPlayerDie += () => _isCountingDown = false;
             CoreGameSignals.Instance.OnCompleteLevel += () => _isCountingDown = false;
+            CoreGameSignals.Instance.OnCompleteObjective += () => _isCountingDown = false;
         }
 
         private void OnDisable()
@@ -24,6 +25,7 @@ namespace Camera
             CoreGameSignals.Instance.OnGameStart -= StartTimer;
             CoreGameSignals.Instance.OnPlayerDie -= () => _isCountingDown = false;
             CoreGameSignals.Instance.OnCompleteLevel -= () => _isCountingDown = false;
+            CoreGameSignals.Instance.OnCompleteObjective -= () => _isCountingDown = false;
         }
         
         private void Update()
@@ -47,7 +49,7 @@ namespace Camera
 
         private void StartTimer()
         {
-            _timeRemaining = duration;
+            _timeRemaining = _duration;
             _isCountingDown = true;
             UpdateTimerText();
         }
@@ -56,7 +58,7 @@ namespace Camera
         {
             int minutes = Mathf.FloorToInt(_timeRemaining / 60);
             int seconds = Mathf.FloorToInt(_timeRemaining % 60);
-            timerText.text = $"Time\n{minutes:00}:{seconds:00}";
+            timerText.text = $"{minutes:00}:{seconds:00}";
         }
     }
 }

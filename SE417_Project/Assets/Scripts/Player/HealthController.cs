@@ -38,7 +38,6 @@ namespace Player
 
         private void Start()
         {
-            //Set all medkit icons to transparent at the beginning
             foreach (var icon in medkitIcons)
             {
                 icon.color = new Color(255, 255, 255, 0.2f);

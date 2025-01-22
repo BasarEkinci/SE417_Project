@@ -8,11 +8,17 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private AudioClip gameSound;
+    
     [SerializeField] private Image fadeImage;
+    [Header("Cameras")]
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private GameObject stairsCamera;
     [SerializeField] private GameObject jessieCamera;
+    
+    [Header("Stair")]
     [SerializeField] private Stair stair;
+    
 
     private void OnEnable()
     {
