@@ -1,3 +1,4 @@
+using System;
 using Inputs;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -13,11 +14,10 @@ namespace Camera
         private const float DefaultPos = 6f;
         private const float CrouchPos = 0f;
         private bool _isPlayerCrouching;
-
+        
         private void OnEnable()
         {
             InputHandler.Instance.PlayerInputs.Player.Crouch.performed += OnCrouchPerformed;
-            _isPlayerCrouching = false;
             followCam.FollowOffset.y = DefaultPos;
         }
         private void Update()

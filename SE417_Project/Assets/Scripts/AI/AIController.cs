@@ -25,6 +25,7 @@ namespace AI
         private bool _isPlayerAlive;
         private float _baseSpeed;
         private bool _isPlayerUnderBed;
+        private bool _isLevelCompleted;
 
         private void Awake()
         {
@@ -36,6 +37,7 @@ namespace AI
 
         private void OnEnable()
         {
+            _isLevelCompleted = false;
             SubscribeEvents();
             _baseSpeed = _agent.speed;
             _audioSource.clip = audioClip;
@@ -65,6 +67,10 @@ namespace AI
         
         private async void ActivateAI()
         {
+            if (_isLevelCompleted)
+            {
+                return;
+            }
             await UniTask.Delay(TimeSpan.FromSeconds(activateTime));
             _audioSource.Play();
             _animator.enabled = true;
@@ -85,7 +91,7 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerWakeUp += ActivateAI;
             CoreGameSignals.Instance.OnPlayerDie += DeactivateAI;
             CoreGameSignals.Instance.OnCompleteLevel += DeactivateAI;
-            CoreGameSignals.Instance.OnCompleteObjective += DeactivateAI;
+            CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
             CoreGameSignals.Instance.OnPlayerEnterBed += OnPlayerEnterBed;
             CoreGameSignals.Instance.OnGameRestart += OnGameRestart;
             CoreGameSignals.Instance.OnGameStart += OnGameStart;
@@ -102,8 +108,14 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerEnterBed -= OnPlayerEnterBed;
             CoreGameSignals.Instance.OnGameRestart -= OnGameRestart;
             CoreGameSignals.Instance.OnGameStart -= OnGameStart;
-            CoreGameSignals.Instance.OnCompleteObjective -= DeactivateAI;
+            CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;
             CoreGameSignals.Instance.OnPauseGame -= OnPauseGame;
+        }
+
+        private void OnCompleteObjective()
+        {
+            _isLevelCompleted = true;
+            DeactivateAI();
         }
 
         private void OnGameRestart()
