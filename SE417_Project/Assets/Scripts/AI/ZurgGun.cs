@@ -31,7 +31,7 @@ namespace AI
             CoreGameSignals.Instance.OnCompleteLevel += ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerDie += ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerHide += ()=> _canShoot = false;
-            CoreGameSignals.Instance.OnPlayerWakeUp += ()=> _canShoot = true;
+            CoreGameSignals.Instance.OnPlayerWakeUp += EnableGun;
             Shoot().Forget();
         } private void Update()
         {
@@ -42,17 +42,28 @@ namespace AI
             CoreGameSignals.Instance.OnCompleteLevel -= ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerDie -= ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerHide -= ()=> _canShoot = false;
-            CoreGameSignals.Instance.OnPlayerWakeUp -= ()=> _canShoot = true;
+            CoreGameSignals.Instance.OnPlayerWakeUp -= EnableGun;
         }
+        
+        private void EnableGun()
+        {
+            EnableGunAsync().Forget();
+        }
+        private async UniTaskVoid EnableGunAsync()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(2f));
+            _canShoot = true;
+        }
+        
         private void DetectPlayer()
         {
-            _isPlayerDetected = Physics.Raycast(detector.position, detector.forward, 100,layerMask);
+            _isPlayerDetected = Physics.Raycast(detector.position, detector.forward, 100, layerMask) && _canShoot;
         }
         private async UniTaskVoid Shoot()
         {
             while (true)
             {
-                if (_isPlayerDetected && _canShoot)
+                if (_isPlayerDetected)
                 {
                     var bullet = Instantiate(bulletPrefab, gunBarrels[_currentGunBarrelIndex].position, gunBarrels[_currentGunBarrelIndex].rotation);
                     bullet.GetComponent<Rigidbody>().AddForce(gunBarrels[_currentGunBarrelIndex].forward * bulletForce,ForceMode.Impulse);

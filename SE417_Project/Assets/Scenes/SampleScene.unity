@@ -203,6 +203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a723682b8e35b349b4102ce00e1eed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restartButton: {fileID: 178211548}
+  mainMenuButton: {fileID: 179987856}
 --- !u!4 &30913029
 Transform:
   m_ObjectHideFlags: 0
@@ -681,10 +683,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1778268079}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: Restart
+      - m_Target: {fileID: 30913028}
+        m_TargetAssemblyTypeName: UI.GameSceneUI, Assembly-CSharp
+        m_MethodName: RestartGame
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 179987856}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -744,7 +758,7 @@ GameObject:
   - component: {fileID: 179987859}
   - component: {fileID: 179987858}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MainMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -814,18 +828,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 179987856}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 30913028}
         m_TargetAssemblyTypeName: UI.GameSceneUI, Assembly-CSharp
         m_MethodName: ReturnToMainMenu
@@ -848,7 +850,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &179987859
 MonoBehaviour:
@@ -6881,8 +6883,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9bee2d9b85ce6429d29aef3758944f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restartButton: {fileID: 178211548}
-  mainMenuButton: {fileID: 179987856}
   fadeImage: {fileID: 1412872527}
   playerCamera: {fileID: 330585543}
   stairsCamera: {fileID: 1773247904}
