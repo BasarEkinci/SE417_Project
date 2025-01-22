@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject restartButton;
+    [SerializeField] private GameObject mainMenuButton;
     [SerializeField] private Image fadeImage;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private GameObject stairsCamera;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         StarGameAsync().Forget();
+        restartButton.SetActive(false);
         CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
         CoreGameSignals.Instance.OnCompleteLevel += OnCompleteLevel;
         CoreGameSignals.Instance.OnPlayerDie += () => restartButton.SetActive(true);
