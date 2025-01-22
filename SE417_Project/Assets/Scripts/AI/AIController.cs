@@ -24,6 +24,7 @@ namespace AI
         private bool _isActive;
         private bool _isPlayerAlive;
         private float _baseSpeed;
+        private bool _isPlayerUnderBed;
 
         private void Awake()
         {
@@ -55,6 +56,7 @@ namespace AI
 
         private void OnGameStart()
         {
+            activateTime = 1f;
             if (isReptile)
                 DeactivateAI();
             else
@@ -111,7 +113,8 @@ namespace AI
         }
         private void OnPauseGame(bool condition)
         {
-            if (isReptile)
+            activateTime = 0.1f;
+            if (isReptile && !_isPlayerUnderBed)
             {
                 return;
             }
@@ -128,10 +131,12 @@ namespace AI
         {
             if (condition == isReptile)
             {
+                _isPlayerUnderBed = condition;
                 ActivateAI();
             }
             else
             {
+                _isPlayerUnderBed = condition;
                 DeactivateAI();
             }
         }

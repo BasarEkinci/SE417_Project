@@ -32,6 +32,7 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerDie += ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerHide += ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerWakeUp += EnableGun;
+            CoreGameSignals.Instance.OnPauseGame += (condition) => _canShoot = !condition;
             Shoot().Forget();
         } private void Update()
         {
@@ -43,6 +44,7 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerDie -= ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerHide -= ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerWakeUp -= EnableGun;
+            CoreGameSignals.Instance.OnPauseGame -= (condition) => _canShoot = !condition;
         }
         
         private void EnableGun()

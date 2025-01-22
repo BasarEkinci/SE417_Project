@@ -18,6 +18,7 @@ namespace Camera
             CoreGameSignals.Instance.OnPlayerDie += () => _isCountingDown = false;
             CoreGameSignals.Instance.OnCompleteLevel += () => _isCountingDown = false;
             CoreGameSignals.Instance.OnCompleteObjective += () => _isCountingDown = false;
+            CoreGameSignals.Instance.OnPauseGame += (condition) => _isCountingDown = !condition;
         }
 
         private void OnDisable()
@@ -26,6 +27,7 @@ namespace Camera
             CoreGameSignals.Instance.OnPlayerDie -= () => _isCountingDown = false;
             CoreGameSignals.Instance.OnCompleteLevel -= () => _isCountingDown = false;
             CoreGameSignals.Instance.OnCompleteObjective -= () => _isCountingDown = false;
+            CoreGameSignals.Instance.OnPauseGame -= (condition) => _isCountingDown = !condition;
         }
         
         private void Update()
