@@ -1,5 +1,4 @@
 using Signals;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,12 +28,12 @@ namespace UI
 
         public void ReturnToMainMenu()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene("MainMenu");
         }
         
         public void RestartGame()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("SampleScene");
         }
     }
 }
