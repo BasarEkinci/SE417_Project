@@ -22,7 +22,7 @@ namespace Jessie
         }
         private async UniTaskVoid PlayVictoryAnimationAsync()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(2f));
+            await UniTask.Delay(TimeSpan.FromSeconds(1f));
             _animator.Play("Celebrate");
         }
     }
