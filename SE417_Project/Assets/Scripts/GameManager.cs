@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        StarGameAsync().Forget();
         CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
         CoreGameSignals.Instance.OnCompleteLevel += OnCompleteLevel;
         CoreGameSignals.Instance.OnPlayerDie += () => restartButton.SetActive(true);
@@ -39,11 +40,6 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(0);
-    }
-
-    public void StartGame()
-    {
-        CoreGameSignals.Instance.OnGameStart?.Invoke();
     }
     
     private void OnCompleteLevel()
@@ -86,5 +82,11 @@ public class GameManager : MonoBehaviour
     {
         deactivateCamera.SetActive(false);
         activateCamera.SetActive(true);
+    }
+
+    private async UniTaskVoid StarGameAsync()
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(1f));
+        CoreGameSignals.Instance.OnGameStart?.Invoke();
     }
 }
