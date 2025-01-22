@@ -1,3 +1,4 @@
+using System;
 using Signals;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,24 +7,33 @@ namespace UI
 {
     public class GameSceneUI : MonoBehaviour
     {
-        [SerializeField] private GameObject restartButton;
-        [SerializeField] private GameObject mainMenuButton;
+        [SerializeField] private GameObject pauseMenu;
+        [SerializeField] private GameObject winMenu;
+        [SerializeField] private GameObject gameOverMenu;
 
         private void OnEnable()
         {
-            restartButton.SetActive(false);
+            pauseMenu.SetActive(false);
+            winMenu.SetActive(false);
+            gameOverMenu.SetActive(false);
             CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
+            CoreGameSignals.Instance.OnCompleteLevel += OnCompleteLevel;
         }
         
         private void OnDisable()
         {
             CoreGameSignals.Instance.OnPlayerDie -= OnPlayerDie;
+            CoreGameSignals.Instance.OnCompleteLevel -= OnCompleteLevel;
+        }
+
+        private void OnCompleteLevel()
+        {
+            winMenu.SetActive(true);
         }
 
         private void OnPlayerDie()
         {
-            restartButton.SetActive(true);
-            mainMenuButton.SetActive(true);
+            gameOverMenu.SetActive(true);
         }
 
         public void ReturnToMainMenu()

@@ -17,7 +17,6 @@ namespace AI
         {
             if (other.CompareTag("Player"))
             {
-                Debug.Log("Player exited bed");
                 CoreGameSignals.Instance.OnPlayerEnterBed?.Invoke(false);
             }
         }

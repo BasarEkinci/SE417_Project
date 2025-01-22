@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Camera
 {
-    public class CameraObstacleHandle : MonoBehaviour
+    public class MakeObjectTransparent : MonoBehaviour
     {
         [SerializeField] private Transform player;
         [SerializeField] private LayerMask targetLayer;
