@@ -87,8 +87,10 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerEnterBed += OnPlayerEnterBed;
             CoreGameSignals.Instance.OnGameRestart += OnGameRestart;
             CoreGameSignals.Instance.OnGameStart += OnGameStart;
+            CoreGameSignals.Instance.OnPauseGame += OnPauseGame;
         }
         
+
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.OnPlayerHide -= DeactivateAI;
@@ -99,6 +101,7 @@ namespace AI
             CoreGameSignals.Instance.OnGameRestart -= OnGameRestart;
             CoreGameSignals.Instance.OnGameStart -= OnGameStart;
             CoreGameSignals.Instance.OnCompleteObjective -= DeactivateAI;
+            CoreGameSignals.Instance.OnPauseGame -= OnPauseGame;
         }
 
         private void OnGameRestart()
@@ -106,7 +109,21 @@ namespace AI
             transform.position = initialPosition.position;
             ActivateAI();
         }
-
+        private void OnPauseGame(bool condition)
+        {
+            if (isReptile)
+            {
+                return;
+            }
+            if (condition)
+            {
+                DeactivateAI();
+            }
+            else
+            {
+                ActivateAI();
+            }
+        }
         private void OnPlayerEnterBed(bool condition)
         {
             if (condition == isReptile)

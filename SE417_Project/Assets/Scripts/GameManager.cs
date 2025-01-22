@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
         jessieCamera.SetActive(false);
         stairsCamera.SetActive(false);
     }
-
     private void OnDisable()
     {
         CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;

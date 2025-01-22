@@ -4691,8 +4691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 1758281344}
   settingsMenu: {fileID: 1599282408}
-  musicMixer: {fileID: 24100000, guid: a9c0c603fc2a700489547386e2421a73, type: 2}
-  effectMixer: {fileID: 24100000, guid: 6d2cefbd1f7b9d44da5ce49704d1abfe, type: 2}
+  masterMixer: {fileID: 24100000, guid: a9c0c603fc2a700489547386e2421a73, type: 2}
   musicSlider: {fileID: 1105704008}
   effectsSlider: {fileID: 2088415090}
   easyToggle: {fileID: 590497613}
@@ -5066,7 +5065,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Music:'
+  m_text: 'Master:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c62e5892ef6e0504481304f005243e51, type: 2}
   m_sharedMaterial: {fileID: -4184274061240367978, guid: c62e5892ef6e0504481304f005243e51, type: 2}

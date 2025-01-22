@@ -1,8 +1,8 @@
 using System;
+using Signals;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -14,8 +14,7 @@ namespace UI
         [SerializeField] private GameObject settingsMenu;
         
         [Header("Mixers")]
-        [SerializeField] private AudioMixer musicMixer; 
-        [SerializeField] private AudioMixer effectMixer;
+        [SerializeField] private AudioMixer masterMixer; 
         
         [Header("Sliders")]
         [SerializeField] private Slider musicSlider;  
@@ -27,7 +26,8 @@ namespace UI
         [SerializeField] private Toggle hardToggle;
 
         private float _gameTime;
-
+        private bool _isGamePaused;
+        
         private void OnEnable()
         {
             mainMenu.SetActive(true);
@@ -39,8 +39,8 @@ namespace UI
         private void Start()
         {
             _gameTime = 180f;
-            musicMixer.SetFloat("MusicVolume", 0);
-            effectMixer.SetFloat("Volume", 0);
+            masterMixer.SetFloat("MusicVolume", 0);
+            masterMixer.SetFloat("Effects", 0);
         }
 
         public void SetDifficulty()
@@ -64,19 +64,19 @@ namespace UI
         
         public void SetMusicVolume(float sliderValue)
         {
-            musicMixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20);
+            masterMixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20);
             if (sliderValue <= 0)
             {
-                musicMixer.SetFloat("MusicVolume", -80);
+                masterMixer.SetFloat("MusicVolume", -80);
             }
         }
         
         public void SetEffectsVolume(float sliderValue)
         {
-            effectMixer.SetFloat("Volume", Mathf.Log10(sliderValue) * 20);
+            masterMixer.SetFloat("Effects", Mathf.Log10(sliderValue) * 20);
             if (sliderValue <= 0)
             {
-                musicMixer.SetFloat("Volume", -80);
+                masterMixer.SetFloat("Effects", -80);
             }
         }
         

@@ -75,6 +75,7 @@ namespace Player
             CoreGameSignals.Instance.OnGameStart += () => _canMove = true;
             CoreGameSignals.Instance.OnPlayerDie += OnPlayerDie;
             CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
+            CoreGameSignals.Instance.OnPauseGame += (isPaused) => _canMove = !isPaused;
         }
 
         private void OnDisable()
@@ -87,6 +88,7 @@ namespace Player
             CoreGameSignals.Instance.OnGameStart -= () => _canMove = true;
             CoreGameSignals.Instance.OnPlayerDie -= OnPlayerDie;
             CoreGameSignals.Instance.OnCompleteObjective -= OnCompleteObjective;
+            CoreGameSignals.Instance.OnPauseGame -= (isPaused) => _canMove = !isPaused;
         }
         private void Update()
         {
