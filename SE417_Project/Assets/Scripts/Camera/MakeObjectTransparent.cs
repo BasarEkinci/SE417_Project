@@ -14,11 +14,11 @@ namespace Camera
         private Material _material;
         private GameObject _hitObject;
         private List<GameObject> _hitObjects = new List<GameObject>();
+
         private void Update()
         {
             MakeTransparent();
         }
-        
         private void MakeTransparent()
         {
             _direction = player.position - transform.position;

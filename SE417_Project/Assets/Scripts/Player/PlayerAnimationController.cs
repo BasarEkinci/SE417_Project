@@ -80,10 +80,6 @@ namespace Player
         {
             _animator.SetBool(IsStandingUp,true);
         }
-
-        /// <summary>
-        /// This method for playing footstep sounds in animation events
-        /// </summary>
         public void PlayFootstepSound()
         {
             SetSound(defaultFootStepSound,carpetFootStepSound);

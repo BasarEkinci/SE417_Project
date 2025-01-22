@@ -23,7 +23,6 @@ namespace Objects
         {
             _audioSource = GetComponent<AudioSource>();
         }
-
         private void OnEnable()
         {
             CoreGameSignals.Instance.OnCollectObject += OnCollectObject;

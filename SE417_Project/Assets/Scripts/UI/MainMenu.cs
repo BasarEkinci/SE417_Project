@@ -1,5 +1,3 @@
-using System;
-using Signals;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -38,7 +36,8 @@ namespace UI
 
         private void Start()
         {
-            _gameTime = 180f;
+            _gameTime = 150f;
+            PlayerPrefs.SetFloat("GameTime", _gameTime);
             masterMixer.SetFloat("MusicVolume", 0);
             masterMixer.SetFloat("Effects", 0);
         }
@@ -47,17 +46,17 @@ namespace UI
         {
             if (easyToggle.isOn)
             {
-                _gameTime = 180f;
+                _gameTime = 150f;
                 PlayerPrefs.SetFloat("GameTime", _gameTime);
             }
             else if (medToggle.isOn)
             {
-                _gameTime = 150f;
+                _gameTime = 120f;
                 PlayerPrefs.SetFloat("GameTime", _gameTime);
             }
             else if (hardToggle.isOn)
             {
-                _gameTime = 120f;
+                _gameTime = 60f;
                 PlayerPrefs.SetFloat("GameTime", _gameTime);
             }
         }

@@ -10,7 +10,7 @@ namespace AI
             if (other.CompareTag("Player"))
             {
                 CoreGameSignals.Instance.OnPlayerEnterBed?.Invoke(true);
-            }            
+            }
         }
 
         private void OnTriggerExit(Collider other)

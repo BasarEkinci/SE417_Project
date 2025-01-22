@@ -2,7 +2,7 @@ using Signals;
 using TMPro;
 using UnityEngine;
 
-namespace Camera
+namespace Objects
 {
     public class Timer : MonoBehaviour
     {
@@ -44,7 +44,6 @@ namespace Camera
                     _timeRemaining = 0;
                     CoreGameSignals.Instance.OnPlayerDie?.Invoke();
                     UpdateTimerText();
-                    //TimerEnded();
                 }
             }
         }

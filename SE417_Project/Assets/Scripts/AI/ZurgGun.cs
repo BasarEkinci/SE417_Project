@@ -34,7 +34,9 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerWakeUp += EnableGun;
             CoreGameSignals.Instance.OnPauseGame += (condition) => _canShoot = !condition;
             Shoot().Forget();
-        } private void Update()
+        } 
+        
+        private void Update()
         {
             DetectPlayer();
         }

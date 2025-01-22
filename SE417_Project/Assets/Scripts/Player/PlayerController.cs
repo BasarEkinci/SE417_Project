@@ -49,8 +49,6 @@ namespace Player
         private bool _canStandUp;
         private bool _isJumping;
         private bool _isLevelComplete;
-
-        #region Unity Methods (Awake, OnEnable, OnDisable, Start, Update)
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -77,7 +75,6 @@ namespace Player
             CoreGameSignals.Instance.OnCompleteObjective += OnCompleteObjective;
             CoreGameSignals.Instance.OnPauseGame += (isPaused) => _canMove = !isPaused;
         }
-
         private void OnDisable()
         {
             InputHandler.Instance.PlayerInputs.Player.Crouch.performed -= OnCrouchPerformed;
@@ -109,8 +106,6 @@ namespace Player
             RotateToMoveDirection();
             Move();
         }
-        #endregion
-        #region Unity Methods (Physics)
         private void OnCollisionEnter(Collision other)
         {
             if (!_canMove)
@@ -170,10 +165,8 @@ namespace Player
                 _ => _isAttachedToEnemy
             };
         }
-        #endregion
         #region Input Actions
 
-        //When player press the "E" key. If the player health is less than max health, the player can use medkit
         private void OnHealPerformed(InputAction.CallbackContext obj)
         {
             if (healthController.CurrentHealth < healthController.MaxHealth)
@@ -181,8 +174,6 @@ namespace Player
                 healthController.UseMedkit();
             }
         }
-
-        //When player press the "R" key. If the player is not dead, the player can hide by falling down
         private void OnHidePerformed(InputAction.CallbackContext obj)
         {
             if (healthController.IsDead)
@@ -201,10 +192,10 @@ namespace Player
             }
         }
 
-        //When player press the "Space" key. If the player health is less than 25 or crouching, the player can't jump
+
         private void OnJumpPerformed(InputAction.CallbackContext obj)
         {
-            //if the player health is less than 25 or crouching, the player can't jump
+
             if (healthController.IsInjured || _isCrouching)
             {
                 return;
@@ -255,7 +246,7 @@ namespace Player
             transform.position += movement * Time.deltaTime;
         }
         
-        //This method is used to rotate the player towards the move direction
+
         private void RotateToMoveDirection()
         {
             if (!_canMove)
@@ -269,14 +260,14 @@ namespace Player
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
         }
-        //This method is used to stand up after the player hides
+
         private async UniTaskVoid StandUp()
         {
             CoreGameSignals.Instance.OnPlayerWakeUp?.Invoke();
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _canMove = true;
         }
-        //This method is used to take damage every second if the player is attached to the enemy
+
         private async UniTaskVoid TakeDamageAsync(int damage, float duration)
         {
             while (true)
