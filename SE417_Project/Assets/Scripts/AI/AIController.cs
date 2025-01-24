@@ -41,6 +41,7 @@ namespace AI
             SubscribeEvents();
             _baseSpeed = _agent.speed;
             _audioSource.clip = audioClip;
+            _agent.speed -= PlayerPrefs.GetFloat("SpeedMultiplier");
         }
 
         private void OnDisable()

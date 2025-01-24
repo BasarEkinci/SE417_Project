@@ -116,7 +116,7 @@ namespace Player
             {
                 case "Enemy":
                     _isAttachedToEnemy = true;
-                    TakeDamageAsync(10,1).Forget();
+                    TakeDamageAsync(10,1.5f).Forget();
                     break;
                 case "Obstacle":
                     _isAttachedToEnemy = true;
@@ -129,7 +129,7 @@ namespace Player
                     break;
                 case "DangerArea":
                     _isAttachedToEnemy = true;
-                    TakeDamageAsync(1,1).Forget();
+                    TakeDamageAsync(1,1.5f).Forget();
                     break;
             }
         }
@@ -151,7 +151,7 @@ namespace Player
                     }
                     else if (healthController.CurrentHealth < healthController.MaxHealth)
                     {
-                        healthController.Heal(20);
+                        healthController.Heal(25);
                         other.gameObject.SetActive(false);   
                     }
                     break;

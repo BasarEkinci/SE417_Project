@@ -48,7 +48,6 @@ namespace AI
             CoreGameSignals.Instance.OnPlayerWakeUp -= EnableGun;
             CoreGameSignals.Instance.OnPauseGame -= (condition) => _canShoot = !condition;
         }
-        
         private void EnableGun()
         {
             EnableGunAsync().Forget();
@@ -58,11 +57,11 @@ namespace AI
             await UniTask.Delay(TimeSpan.FromSeconds(2f));
             _canShoot = true;
         }
-        
         private void DetectPlayer()
         {
             _isPlayerDetected = Physics.Raycast(detector.position, detector.forward, 100, layerMask) && _canShoot;
         }
+        //Silahın ateş etmesini sağlayan fonksiyon
         private async UniTaskVoid Shoot()
         {
             while (true)

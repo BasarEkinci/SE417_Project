@@ -25,6 +25,7 @@ namespace UI
 
         private float _gameTime;
         private bool _isGamePaused;
+        private float _speedMultiplier;
         
         private void OnEnable()
         {
@@ -37,6 +38,8 @@ namespace UI
         private void Start()
         {
             _gameTime = 150f;
+            _speedMultiplier = 0f;
+            PlayerPrefs.SetFloat("SpeedMultiplier", _speedMultiplier);
             PlayerPrefs.SetFloat("GameTime", _gameTime);
             masterMixer.SetFloat("MusicVolume", 0);
             masterMixer.SetFloat("Effects", 0);
@@ -47,16 +50,22 @@ namespace UI
             if (easyToggle.isOn)
             {
                 _gameTime = 150f;
+                _speedMultiplier = 1f;
+                PlayerPrefs.SetFloat("SpeedMultiplier", _speedMultiplier);
                 PlayerPrefs.SetFloat("GameTime", _gameTime);
             }
             else if (medToggle.isOn)
             {
                 _gameTime = 120f;
+                _speedMultiplier = 0.75f;
+                PlayerPrefs.SetFloat("SpeedMultiplier", _speedMultiplier);
                 PlayerPrefs.SetFloat("GameTime", _gameTime);
             }
             else if (hardToggle.isOn)
             {
                 _gameTime = 60f;
+                _speedMultiplier = 0f;
+                PlayerPrefs.SetFloat("SpeedMultiplier", _speedMultiplier);
                 PlayerPrefs.SetFloat("GameTime", _gameTime);
             }
         }
