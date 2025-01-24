@@ -67,7 +67,6 @@ namespace Player
             _canMove = false;
             InputHandler.Instance.PlayerInputs.Player.Crouch.performed += OnCrouchPerformed;
             InputHandler.Instance.PlayerInputs.Player.Jump.performed += OnJumpPerformed;
-            InputHandler.Instance.PlayerInputs.Player.Hide.performed += OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed += OnHealPerformed;
             CoreGameSignals.Instance.OnCompleteLevel += ()=> _canMove = false;
             CoreGameSignals.Instance.OnGameStart += () => _canMove = true;
@@ -79,7 +78,6 @@ namespace Player
         {
             InputHandler.Instance.PlayerInputs.Player.Crouch.performed -= OnCrouchPerformed;
             InputHandler.Instance.PlayerInputs.Player.Jump.performed -= OnJumpPerformed;
-            InputHandler.Instance.PlayerInputs.Player.Hide.performed -= OnHidePerformed;
             InputHandler.Instance.PlayerInputs.Player.Heal.performed -= OnHealPerformed;
             CoreGameSignals.Instance.OnCompleteLevel -= ()=> _canMove = false;
             CoreGameSignals.Instance.OnGameStart -= () => _canMove = true;
@@ -174,25 +172,7 @@ namespace Player
                 healthController.UseMedkit();
             }
         }
-        private void OnHidePerformed(InputAction.CallbackContext obj)
-        {
-            if (healthController.IsDead)
-            {
-                return;
-            }
-
-            if (_canMove)
-            {
-                CoreGameSignals.Instance.OnPlayerHide?.Invoke();
-                _canMove = false;
-            }
-            else
-            {
-                StandUp().Forget();
-            }
-        }
-
-
+        
         private void OnJumpPerformed(InputAction.CallbackContext obj)
         {
 
@@ -260,14 +240,6 @@ namespace Player
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
         }
-
-        private async UniTaskVoid StandUp()
-        {
-            CoreGameSignals.Instance.OnPlayerWakeUp?.Invoke();
-            await UniTask.Delay(TimeSpan.FromSeconds(2f));
-            _canMove = true;
-        }
-
         private async UniTaskVoid TakeDamageAsync(int damage, float duration)
         {
             while (true)

@@ -31,7 +31,7 @@ namespace AI
             CoreGameSignals.Instance.OnCompleteLevel += ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerDie += ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerHide += ()=> _canShoot = false;
-            CoreGameSignals.Instance.OnPlayerWakeUp += EnableGun;
+            CoreGameSignals.Instance.OnCompleteObjective += ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPauseGame += (condition) => _canShoot = !condition;
             Shoot().Forget();
         } 
@@ -44,8 +44,8 @@ namespace AI
         {
             CoreGameSignals.Instance.OnCompleteLevel -= ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerDie -= ()=> _canShoot = false;
+            CoreGameSignals.Instance.OnCompleteObjective -= ()=> _canShoot = false;
             CoreGameSignals.Instance.OnPlayerHide -= ()=> _canShoot = false;
-            CoreGameSignals.Instance.OnPlayerWakeUp -= EnableGun;
             CoreGameSignals.Instance.OnPauseGame -= (condition) => _canShoot = !condition;
         }
         private void EnableGun()
@@ -61,7 +61,6 @@ namespace AI
         {
             _isPlayerDetected = Physics.Raycast(detector.position, detector.forward, 100, layerMask) && _canShoot;
         }
-        //Silahın ateş etmesini sağlayan fonksiyon
         private async UniTaskVoid Shoot()
         {
             while (true)
