@@ -29301,10 +29301,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1103813352}
     m_Modifications:
-    - target: {fileID: 932329039869714200, guid: 79c657ed06d478141a8642e7130196e8, type: 3}
-      propertyPath: m_AutoBraking
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2475722975932564752, guid: 79c657ed06d478141a8642e7130196e8, type: 3}
       propertyPath: m_Name
       value: Zurg

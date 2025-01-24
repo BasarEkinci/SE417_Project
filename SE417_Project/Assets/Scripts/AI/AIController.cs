@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Signals;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace AI
 {
@@ -14,6 +15,7 @@ namespace AI
         [SerializeField] private bool isReptile;
         [SerializeField] private AudioClip audioClip;
         [SerializeField] private float activateTime = 2f;
+        [SerializeField] private float baseSpeed;
         
         private NavMeshAgent _agent;
         private AudioSource _audioSource;
@@ -23,10 +25,10 @@ namespace AI
         private bool _canMove;
         private bool _isActive;
         private bool _isPlayerAlive;
-        private float _baseSpeed;
         private bool _isPlayerUnderBed;
         private bool _isLevelCompleted;
-
+        private float _currentSpeed;
+        
         private void Awake()
         {
             _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -34,16 +36,14 @@ namespace AI
             _audioSource = GetComponent<AudioSource>();
             _animator = GetComponent<Animator>();
         }
-
         private void OnEnable()
         {
             _isLevelCompleted = false;
             SubscribeEvents();
-            _baseSpeed = _agent.speed;
             _audioSource.clip = audioClip;
-            _agent.speed -= PlayerPrefs.GetFloat("SpeedMultiplier");
+            _currentSpeed = baseSpeed;
+            _currentSpeed -= PlayerPrefs.GetFloat("SpeedMultiplier");
         }
-
         private void OnDisable()
         {
             UnsubscribeEvents();
@@ -76,7 +76,7 @@ namespace AI
             _audioSource.Play();
             _animator.enabled = true;
             _isActive = true;
-            _agent.speed = _baseSpeed;
+            _agent.speed = _currentSpeed;
         }
         
         private void DeactivateAI()
@@ -99,7 +99,6 @@ namespace AI
             CoreGameSignals.Instance.OnPauseGame += OnPauseGame;
         }
         
-
         private void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.OnPlayerHide -= DeactivateAI;
