@@ -2281,7 +2281,7 @@ MonoBehaviour:
     Enabled: 0
     DefaultMode: 2
   DefaultBlend:
-    Style: 1
+    Style: 6
     Time: 2
     CustomCurve:
       serializedVersion: 2
@@ -8842,9 +8842,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3691126504739848984, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3987399707930093736, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
       propertyPath: m_Name
       value: ZurgBot
+      objectReference: {fileID: 0}
+    - target: {fileID: 3987399707930093736, guid: 08bd9406f5cb9f047bd1d9312634f121, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9806,7 +9814,7 @@ MonoBehaviour:
     ScreenPosition: {x: 0, y: 0}
     DeadZone:
       Enabled: 0
-      Size: {x: 0.2, y: 0.2}
+      Size: {x: 0.09, y: 0.03}
     HardLimits:
       Enabled: 0
       Size: {x: 0.8, y: 0.8}
@@ -16288,9 +16296,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4313965670900720318, guid: 8b39759e3acb96f4d94ea5ee37ec4d4a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5711108198093288923, guid: 8b39759e3acb96f4d94ea5ee37ec4d4a, type: 3}
       propertyPath: m_Name
       value: Robot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711108198093288923, guid: 8b39759e3acb96f4d94ea5ee37ec4d4a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19438,9 +19454,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 2
+  m_CollisionDetection: 0
 --- !u!23 &4062459089790654223
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -25605,8 +25621,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 28.612064, y: 22.013191, z: 14.502714}
-  m_Center: {x: -2.6931596, y: 1.6150087, z: 0.19006684}
+  m_Size: {x: 34.820618, y: 22.013191, z: 14.5027075}
+  m_Center: {x: -2.1258805, y: 1.6150087, z: 0.19006684}
 --- !u!23 &6849422381048149178
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -29301,9 +29317,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1103813352}
     m_Modifications:
+    - target: {fileID: 1333971348722451097, guid: 79c657ed06d478141a8642e7130196e8, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2475722975932564752, guid: 79c657ed06d478141a8642e7130196e8, type: 3}
       propertyPath: m_Name
       value: Zurg
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475722975932564752, guid: 79c657ed06d478141a8642e7130196e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5012527467503356590, guid: 79c657ed06d478141a8642e7130196e8, type: 3}
       propertyPath: m_LocalPosition.x

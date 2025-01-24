@@ -101,9 +101,15 @@ namespace Player
             }
             layerDetectorDown.IsLayerDetected();
             _canStandUp = !layerDetectorUp.IsLayerDetected();
+            _moveVector = InputHandler.Instance.GetMoveInput();
             RotateToMoveDirection();
+        }
+
+        private void FixedUpdate()
+        {
             Move();
         }
+
         private void OnCollisionEnter(Collision other)
         {
             if (!_canMove)
@@ -155,6 +161,7 @@ namespace Player
                     break;
             }
         }
+        
         private void OnCollisionExit(Collision other)
         {
             _isAttachedToEnemy = other.gameObject.tag switch
@@ -217,16 +224,14 @@ namespace Player
         }
         private void Move()
         {
-            _moveVector = InputHandler.Instance.GetMoveInput();
             Vector3 movement = new Vector3(_moveVector.x, 0, _moveVector.y) * moveSpeed;
             if (!_canMove)
             {
                 return;
             }
-            transform.position += movement * Time.deltaTime;
+            transform.position += movement * Time.fixedDeltaTime;
         }
         
-
         private void RotateToMoveDirection()
         {
             if (!_canMove)

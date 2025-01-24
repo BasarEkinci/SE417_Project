@@ -43,10 +43,6 @@ namespace AI
             _currentSpeed = baseSpeed;
             _currentSpeed -= PlayerPrefs.GetFloat("SpeedMultiplier");
         }
-        private void OnDisable()
-        {
-            UnsubscribeEvents();
-        }
 
         private void Update()
         {
@@ -56,6 +52,10 @@ namespace AI
             }
         }
 
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
         private void OnGameStart()
         {
             activateTime = 1f;
