@@ -33,14 +33,14 @@ namespace UI
             settingsMenu.SetActive(false);
             SetEffectsVolume(effectsSlider.value);
             SetMusicVolume(musicSlider.value);
-        }
-
-        private void Start()
-        {
             _gameTime = 150f;
             _speedMultiplier = 0f;
             PlayerPrefs.SetFloat("SpeedMultiplier", _speedMultiplier);
             PlayerPrefs.SetFloat("GameTime", _gameTime);
+        }
+
+        private void Start()
+        {
             masterMixer.SetFloat("MusicVolume", 0);
             masterMixer.SetFloat("Effects", 0);
         }
