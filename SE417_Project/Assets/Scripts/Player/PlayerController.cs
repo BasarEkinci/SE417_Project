@@ -112,10 +112,6 @@ namespace Player
             }
             switch (other.gameObject.tag)
             {
-                case "Enemy":
-                    _isAttachedToEnemy = true;
-                    TakeDamageAsync(10,1.5f).Forget();
-                    break;
                 case "Obstacle":
                     _isAttachedToEnemy = true;
                     healthController.Damage(1);
@@ -125,6 +121,7 @@ namespace Player
                     }
                     cameraShake.ShakeCamera();
                     break;
+                case "Enemy":
                 case "DangerArea":
                     _isAttachedToEnemy = true;
                     TakeDamageAsync(1,1.5f).Forget();
@@ -134,7 +131,10 @@ namespace Player
     
         private void OnTriggerEnter(Collider other)
         {
-
+            if (_isAttachedToEnemy)
+            {
+                return;
+            }
             switch (other.tag)
             {
                 case "Collectable":

@@ -1014,7 +1014,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 6.5
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1161,7 +1161,7 @@ MonoBehaviour:
   isReptile: 0
   audioClip: {fileID: 8300000, guid: ab62cea02536cf2489c1c05190df39a0, type: 3}
   activateTime: 2
-  baseSpeed: 6.5
+  baseSpeed: 7
 --- !u!1 &4256460410053816555
 GameObject:
   m_ObjectHideFlags: 0
